@@ -1,9 +1,19 @@
+import HomeFooter from "../../components/blocks/HomeFooter/HomeFooter"
+import HomeHeader from "../../components/blocks/HomeHeader/HomeHeader"
 
 
 const Home = () => {
     return (
-        <div>Home</div>
+        <>
+            <HomeHeader/>
+            <main>
+                
+            </main>
+            <footer>
+                <HomeFooter/>
+            </footer>
+        </>
     )
 }
 
-export default Home
+export default Home;

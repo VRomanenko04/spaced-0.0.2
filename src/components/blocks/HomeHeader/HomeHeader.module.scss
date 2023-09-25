@@ -1,0 +1,59 @@
+@import '../../../styles/var';
+
+.header {
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,4,23,1) 38%, rgba(236,148,34,1) 80%, rgba(249,249,249,1) 99%);
+    height: 100svh;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    margin-left: 160px;
+}
+
+.top,
+.text,
+a {
+    color: $text;
+}
+
+.top {
+    font-family: $fontIndivisible;
+    font-weight: 600;
+    font-size: 102px;
+}
+
+.text {
+    font-family: $fontInconsolata;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.auth__btns {
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 10px 30px 12px 30px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: $fontInconsolata;
+    color: #FFF;
+    font-size: 20px;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.login_btn {
+    background: #2374BD;
+    margin-right: 22px;
+}
+
+.registr_btn {
+    border: 1px solid #FFF;
+    background-color: #000;
+}

@@ -8,6 +8,7 @@ const NavBar = () => {
                 <ul className={styles.menu__list}>
                     <li><Link to='home'>Home</Link></li>
                     <li><Link to='cabinet'>Cabinet</Link></li>
+                    <li><Link to='courses'>Courses</Link></li>
                 </ul>
             </nav>
         </div>

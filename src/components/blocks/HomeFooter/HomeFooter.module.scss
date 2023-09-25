@@ -1,0 +1,40 @@
+@import '../../../styles/var';
+@import '../../../styles/fonts';
+
+
+.footer {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    background-color: $background;
+}
+
+.footer_text {
+    max-width: 50%;
+    margin-left: 160px;
+}
+
+.footer_text h4,
+.footer_text p {
+    color: $text;
+}
+
+.footer_text h4 {
+    font-family: Indivisible;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.footer_text p {
+    font-family: Inconsolata;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.social_position {
+    margin-left: 300px;
+    margin-bottom: 60px;
+    align-self: flex-end;
+}
