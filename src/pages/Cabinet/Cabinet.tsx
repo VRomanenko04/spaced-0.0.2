@@ -1,7 +1,11 @@
+import NavBar from "../../components/UI/NavBar/NavBar"
 
 const Cabinet = () => {
     return (
-        <div>Cabinet</div>
+        <>
+            <NavBar/>
+            <h1 style={{color: '#000'}}>Cabinet</h1>
+        </>
     )
 }
 

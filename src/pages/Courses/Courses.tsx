@@ -1,8 +1,11 @@
-import React from 'react'
+import NavBar from "../../components/UI/NavBar/NavBar"
 
 const Courses = () => {
     return (
-        <div>Courses</div>
+        <>
+            <NavBar/>
+            <h1 style={{color: '#000'}}>Courses</h1>
+        </>
     )
 }
 

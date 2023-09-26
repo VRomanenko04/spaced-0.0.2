@@ -1,5 +1,60 @@
+@import '../../../styles/var';
+
+.container {
+    background-color: #0F0F0F;
+    border-bottom: 3px solid #444;
+    height: 80px;
+}
+
+.menu {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 150px;
+}
+
+.logo__container {
+    margin-left: calc(50% - 45px);
+}
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.right__menu {
+    display: flex;
+    align-items: center;
+}
+
 .menu__list {
+    list-style: none;
+    display: flex;
+    margin-right: 150px;
+
     li {
         color: #000;
+        margin-left: 45px;
+    }
+
+    .menu__item {
+        text-decoration: none;
+        font-size: 18px;
+        font-family: $fontIndivisible;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    color: $text;
+
+    p {
+        margin-right: 20px;
+        font-family: $fontIndivisible;
     }
 }
