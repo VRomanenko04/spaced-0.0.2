@@ -1,0 +1,47 @@
+@import '../../../styles/var';
+
+.selector {
+    display: flex;
+    flex-direction: column !important;
+
+    .off__options {
+        display: none;
+    }
+    .show__options {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0 -30px;
+        li {
+            font-size: 20px;
+            width: 138px;
+            height: 30px;
+            padding-top: 5px;
+            padding-left: 10px;
+            margin-top: 0;
+            background-color: #313131;
+            border: 1px solid #FFF;
+            border-top: none;
+            cursor: pointer;
+        }
+    }
+}
+
+.select__btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 30px;
+    padding-left: 10px;
+    border: 1px solid #FFF;
+    background-color: #313131;
+    color: #FFF;
+    font-size: 20px;
+    font-family: $fontIndivisible;
+    font-weight: 600;
+    width: 150px;
+    height: 43px;
+    cursor: pointer;
+}

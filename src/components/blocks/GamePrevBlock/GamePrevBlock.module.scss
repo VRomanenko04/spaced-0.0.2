@@ -1,0 +1,32 @@
+.game_container {
+    position: relative;
+    margin: 400px 0;
+    background: #7A7A7A;
+    height: 436px;
+}
+
+.asteroid1 {
+    position: absolute;
+    width: 101px;
+    height: 101px;
+    transform: rotate(-135deg);
+    top: 104%;
+    left: 9%;
+}
+
+.asteroid2 {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    top: -15%;
+    left: 45%;
+}
+
+.asteroid3 {
+    position: absolute;
+    transform: rotate(120deg);
+    width: 143px;
+    height: 143px;
+    top: 92%;
+    left: 83%;
+}

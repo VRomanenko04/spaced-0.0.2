@@ -1,0 +1,85 @@
+@import '../../../styles/var';
+
+.block__container {
+    border-radius: 22px;
+    border: 0.5px solid #FFF;
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    margin-bottom: 150px;
+    background-color: #000;
+    font-family: $fontIndivisible;
+
+    p, li, h4 {
+        color: #FFF;
+    }
+
+    h4 {
+        font-size: 30px;
+    }
+
+    li {
+        font-family: $fontInconsolata;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+}
+
+.plans {
+    display: flex;
+    flex-direction: row;
+    min-height: 440px;
+
+    .basic__plan,
+    .ultra__plan {
+        display: flex;
+        flex-direction: row;
+        padding: 60px;
+
+        h4 {
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            margin-left: 40px;
+        }
+    }
+
+    img {
+        height: 250px;
+        width: auto;
+    }
+}
+
+.basic__plan {
+    border-right: 0.5px solid #FFF;
+}
+
+.lower__panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.5px solid #FFF;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 30px;
+        padding: 10px;
+        font-weight: 600;
+
+        p {
+            font-size: 20px;
+        }
+    }
+
+    .btn {
+        margin-right: 30px;
+        width: 146px;
+        height: 43px;
+        cursor: pointer;
+    }
+}
