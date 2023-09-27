@@ -1,12 +1,21 @@
 import { useState } from 'react';
 import styles from './SubscribePlan.module.scss';
+import Selector from '../../UI/Selector/Selector';
+import { useActions } from '../../../hooks/useActions';
 
 import basicImg from '../../../assets/imgs/basic-planet.png';
 import ultraImg from '../../../assets/imgs/ultra-planet.png';
-import Selector from '../../UI/Selector/Selector';
+
 
 const SubscribePlan = () => {
     const [selectedPlan, setSelectedPlan] = useState('basic');
+
+    const { setChosenPlan } = useActions();
+
+    const handleClick = () => {
+        const chosenPlan = setChosenPlan(selectedPlan);
+        alert(`Your chose plan ${chosenPlan.payload}`);
+    }
 
     return (
         <div className={styles.block__container}>
@@ -45,7 +54,7 @@ const SubscribePlan = () => {
                 <Selector setSelectedPlan={setSelectedPlan}/>
                 <p>{selectedPlan === 'basic' ? '$9.99' : '$14.99'}</p>
             </div>
-            <button className={styles.btn}>Got it</button>
+            <button onClick={handleClick} className={styles.btn}>Got it</button>
         </div>
     </div>
     )
