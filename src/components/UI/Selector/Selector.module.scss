@@ -3,6 +3,7 @@
 .selector {
     display: flex;
     flex-direction: column !important;
+    position: relative;
 
     .off__options {
         display: none;
@@ -13,6 +14,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: absolute;
+        top: 53px;
         margin: 0 0 0 -30px;
         li {
             font-size: 20px;
