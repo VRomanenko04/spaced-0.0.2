@@ -5,7 +5,7 @@ import insta from '../../../assets/imgs/Inst_logo.svg';
 import facebook from '../../../assets/imgs/Facebook_logo.svg';
 
 type SocialItemProps = {
-    extraClass: string
+    extraClass?: string
 }
 
 const SocialIcons= (props: SocialItemProps) => {

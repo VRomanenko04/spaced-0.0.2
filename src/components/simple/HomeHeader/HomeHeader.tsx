@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import Popup from '../../UI/Popup/Popup';
 import styles from './HomeHeader.module.scss';
+import AuthPopup from '../../smart/AuthPopup/AuthPopup';
 
 const HomeHeader = () => {
-    const [active, setActive] = useState(false)
+    const [isActive, setIsActive] = useState(false)
     const [isChosed, setIsChosed] = useState('');
 
     const handleLogin = () => {
         setIsChosed('LogIn');
-        setActive(true);
+        setIsActive(true);
     }
 
     const handleRegister = () => {
         setIsChosed('Register');
-        setActive(true);
+        setIsActive(true);
     }
 
     const handleChangeChoose = () => {
-        setActive(false);
+        setIsActive(false);
         setTimeout(() => {
             setIsChosed('Register');
-            setActive(true);
+            setIsActive(true);
         }, 400)
     }
 
@@ -34,21 +34,12 @@ const HomeHeader = () => {
                     <button onClick={handleRegister} className={`${styles.btn} ${styles.registr_btn}`}>Register</button>
                 </div>
             </div>
-            <Popup extendClass={styles.popup} active={active} setActive={setActive}>
-                {
-                    isChosed === 'LogIn' ?
-                    <div className={styles.login__form}>
-                        <h1>Login</h1>
-                        <p>No acc? <u onClick={handleChangeChoose}>Register</u></p>
-                    </div>
-                    : isChosed === 'Register' ?
-                    <div className={styles.register__form}>
-                        <h1>Register</h1> 
-                    </div>
-                    :
-                    <h1>Error</h1>
-                }
-            </Popup>
+            <AuthPopup 
+                active={isActive}
+                setActive={setIsActive}
+                isChosed={isChosed}
+                handleChangeChoose={handleChangeChoose}
+            />
         </header>
     )
 }

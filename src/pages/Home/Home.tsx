@@ -1,8 +1,8 @@
-import AboutBlock from "../../components/blocks/AboutBlock/AboutBlock";
-import GamePrevBlock from "../../components/blocks/GamePrevBlock/GamePrevBlock";
-import HomeFooter from "../../components/blocks/HomeFooter/HomeFooter"
-import HomeHeader from "../../components/blocks/HomeHeader/HomeHeader"
-import SubscribeBlock from "../../components/blocks/SubscribeBlock/SubscribeBlock";
+import AboutBlock from "../../components/ordinary/AboutBlock/AboutBlock";
+import GamePrevBlock from "../../components/ordinary/GamePrevBlock/GamePrevBlock";
+import HomeFooter from "../../components/ordinary/HomeFooter/HomeFooter"
+import HomeHeader from "../../components/simple/HomeHeader/HomeHeader"
+import SubscribeBlock from "../../components/ordinary/SubscribeBlock/SubscribeBlock";
 
 
 const Home = () => {
