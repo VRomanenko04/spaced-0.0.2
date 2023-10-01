@@ -21,6 +21,17 @@ const RegisterForm = () => {
         });
     }
 
+    const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        console.log(registerForm);
+        setRegisterForm({
+            username: '',
+            email: '',
+            password: '',
+            checkpass: ''
+        });
+    }
+
     useEffect(() => {
         setIsPasswordCorrect(registerForm.password === registerForm.checkpass);
     }, [registerForm.password, registerForm.checkpass]);
@@ -32,7 +43,7 @@ const RegisterForm = () => {
                 <div className={styles.avatar}>
                     <img src={ava} alt="avatar" />
                 </div>
-                <form className={styles.form}>
+                <form onSubmit={handleSubmitForm} className={styles.form}>
                     <div className={styles.inputs__pos}>
                         <div className={styles.input__box}>
                             <label htmlFor="username">Username</label>
