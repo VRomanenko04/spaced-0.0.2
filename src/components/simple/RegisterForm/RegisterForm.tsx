@@ -1,9 +1,30 @@
 import ChooseLng from '../../smart/ChooseLng/ChooseLng';
 import styles from './RegisterForm.module.scss';
 import ava from '../../../assets/imgs/Rectangle 46.png'
+import { useState, useEffect } from 'react';
 
 
 const RegisterForm = () => {
+    const [registerForm, setRegisterForm] = useState({
+        username: '',
+        email: '',
+        password: '',
+        checkpass: ''
+    });
+    const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setRegisterForm({
+            ...registerForm,
+            [name]: value
+        });
+    }
+
+    useEffect(() => {
+        setIsPasswordCorrect(registerForm.password === registerForm.checkpass);
+    }, [registerForm.password, registerForm.checkpass]);
+
     return (
         <div className={styles.register__form}>
             <h2>Registration</h2> 
@@ -14,22 +35,50 @@ const RegisterForm = () => {
                 <form className={styles.form}>
                     <div className={styles.inputs__pos}>
                         <div className={styles.input__box}>
-                            <label htmlFor="Username">Username</label>
-                            <input type="text" name='Username' />
+                            <label htmlFor="username">Username</label>
+                            <input 
+                                type="text" 
+                                name='username' 
+                                value={registerForm.username}
+                                onChange={handleChange}
+                            />
                         </div>
                         <div className={styles.input__box}>
-                            <label htmlFor="Email">Email</label>
-                            <input type="email" name='Email' placeholder='yourEmail@gmail.com' />
+                            <label htmlFor="email">Email</label>
+                            <input 
+                                type="email" 
+                                name='email' 
+                                placeholder='yourEmail@gmail.com' 
+                                value={registerForm.email}
+                                onChange={handleChange}
+                            />
                         </div>
                     </div>
                     <div className={styles.inputs__pos}>
                         <div className={styles.input__box}>
-                            <label htmlFor="Password">Password</label>
-                            <input type="password" name='Password' placeholder='********' />
+                            <label htmlFor="password">Password</label>
+                            <input 
+                                type="password" 
+                                name='password' 
+                                placeholder='********' 
+                                value={registerForm.password}
+                                onChange={handleChange}
+                            />
                         </div>
                         <div className={styles.input__box}>
-                            <label htmlFor="ConfPassword">Confirm password</label>
-                            <input type="password" name='ConfPassword' placeholder='********' />
+                            <label htmlFor="checkpass">Confirm password</label>
+                            <input 
+                                type="password" 
+                                name='checkpass' 
+                                placeholder='********' 
+                                value={registerForm.checkpass}
+                                onChange={handleChange}
+                            />
+                            {isPasswordCorrect ? 
+                                <></> 
+                                :
+                                <p className={styles.warning}>Password mismatch</p>
+                            }
                         </div>
                     </div>
                     <div>
