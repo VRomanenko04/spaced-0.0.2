@@ -2,8 +2,6 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { reducer as subscribePlanReducer } from "./subscribePlan/subscribePlan.slice";
 import { reducer as userAuthReducer } from "./userAuth/userAuth.slice";
 
-export type RootState = ReturnType<typeof reducers>;
-
 const reducers = combineReducers({
     subscribePlan: subscribePlanReducer,
     userAuth: userAuthReducer,
@@ -12,3 +10,6 @@ const reducers = combineReducers({
 export const store = configureStore({
     reducer: reducers,
 })
+
+export type RootState = ReturnType<typeof reducers>;
+export type AppDispatch = ReturnType<typeof store.dispatch>;

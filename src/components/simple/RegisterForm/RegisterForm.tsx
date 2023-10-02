@@ -2,7 +2,8 @@ import ChooseLng from '../../smart/ChooseLng/ChooseLng';
 import styles from './RegisterForm.module.scss';
 import ava from '../../../assets/imgs/Rectangle 46.png'
 import { useState, useEffect } from 'react';
-
+import { useActions } from '../../../hooks/useActions';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterForm = () => {
     const [registerForm, setRegisterForm] = useState({
@@ -12,6 +13,22 @@ const RegisterForm = () => {
         checkpass: ''
     });
     const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
+
+    const { setUser } = useActions();
+
+    const handleRegister = (email: string, password: string) => {
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(({ user }) => {
+                console.log(user);
+                setUser({
+                    email: user.email,
+                    id: user.uid,
+                    token: (user as any).accessToken,
+                })
+            })
+            .catch(console.error);
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -23,7 +40,8 @@ const RegisterForm = () => {
 
     const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(registerForm);
+        handleRegister(registerForm.email, registerForm.password);
+        console.log(registerForm.username);
         setRegisterForm({
             username: '',
             email: '',
@@ -48,6 +66,7 @@ const RegisterForm = () => {
                         <div className={styles.input__box}>
                             <label htmlFor="username">Username</label>
                             <input 
+                                id='username'
                                 type="text" 
                                 name='username' 
                                 value={registerForm.username}
@@ -57,6 +76,7 @@ const RegisterForm = () => {
                         <div className={styles.input__box}>
                             <label htmlFor="email">Email</label>
                             <input 
+                                id='email'
                                 type="email" 
                                 name='email' 
                                 placeholder='yourEmail@gmail.com' 
@@ -69,6 +89,7 @@ const RegisterForm = () => {
                         <div className={styles.input__box}>
                             <label htmlFor="password">Password</label>
                             <input 
+                                id='password'
                                 type="password" 
                                 name='password' 
                                 placeholder='********' 
@@ -79,6 +100,7 @@ const RegisterForm = () => {
                         <div className={styles.input__box}>
                             <label htmlFor="checkpass">Confirm password</label>
                             <input 
+                                id='checkpass'
                                 type="password" 
                                 name='checkpass' 
                                 placeholder='********' 

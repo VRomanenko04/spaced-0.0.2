@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './LoginForm.module.scss';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useActions } from '../../../hooks/useActions';
 
 interface ILogin {
     handleChangeChoose: () => void
@@ -10,6 +12,22 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
         email: '',
         password: ''
     })
+
+    const { setUser } = useActions();
+
+    const handleLogin = (email: string, password: string) => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+            .then(({user}) => {
+                console.log(user);
+                setUser({
+                    email: user.email,
+                    id: user.uid,
+                    token: (user as any).accessToken,
+                })
+            })
+            .catch(() => alert('Invalid user!'));
+    }
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserLogin({
@@ -27,7 +45,7 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(userLogin);
+        handleLogin(userLogin.email, userLogin.password);
         setUserLogin({
             email: '',
             password: ''
