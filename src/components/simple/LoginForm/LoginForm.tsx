@@ -12,7 +12,7 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
     const [userLogin, setUserLogin] = useState({
         email: '',
         password: ''
-    })
+    });
 
     const { setUser } = useActions();
 
@@ -27,7 +27,7 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
                     token: (user as any).accessToken,
                 })
             })
-            .catch(() => alert('Invalid user!'));
+            .catch(() => alert('User is not found!'));
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
     }
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         handleLogin(userLogin.email, userLogin.password);
         setUserLogin({
             email: '',

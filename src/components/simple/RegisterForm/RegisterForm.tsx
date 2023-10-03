@@ -13,6 +13,14 @@ const RegisterForm = () => {
         password: '',
         checkpass: ''
     });
+
+    const [validationErrors, setValidationErrors] = useState<{
+        username?: string;
+        email?: string;
+        password?: string;
+        checkpass?: string;
+    }>({});
+
     const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
 
     const { setUser } = useActions();
@@ -40,15 +48,40 @@ const RegisterForm = () => {
     }
 
     const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        handleRegister(registerForm.email, registerForm.password);
-        console.log(registerForm.username);
-        setRegisterForm({
-            username: '',
-            email: '',
-            password: '',
-            checkpass: ''
-        });
+        e.preventDefault();
+        // Проводим проверки и обновляем состояние ошибок валидации
+        const errors: { [key: string]: string } = {};
+        // Проверка имени пользователя
+        if (registerForm.username.length < 4) {
+            errors.username = 'Username should be at least 4 characters long.';
+        }
+        // Проверка пароля
+        if (registerForm.password.length < 8) {
+            errors.password = 'Password should be at least 8 characters long.';
+        } else if (!/[A-Z]/.test(registerForm.password)) {
+            errors.password = 'Password should contain at least one uppercase letter.';
+        } else if (!/\d/.test(registerForm.password)) {
+            errors.password = 'Password should contain at least one digit.';
+        }
+
+        // Проверка подтверждения пароля
+        if (registerForm.password !== registerForm.checkpass) {
+            errors.checkpass = 'Passwords do not match.';
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setValidationErrors(errors);
+        } else {
+            // Если ошибок нет, отправляем форму
+            handleRegister(registerForm.email, registerForm.password);
+            setRegisterForm({
+                username: '',
+                email: '',
+                password: '',
+                checkpass: '',
+            });
+            setValidationErrors({});
+        }
     }
 
     useEffect(() => {
@@ -64,13 +97,18 @@ const RegisterForm = () => {
                 </div>
                 <form onSubmit={handleSubmitForm} className={styles.form}>
                     <div className={styles.inputs__pos}>
-                        <Input
-                            idNameHtmlFor='username'
-                            type='text'
-                            labelText='Username'
-                            value={registerForm.username}
-                            handleChange={handleChange}
-                        />
+                        <div className={styles.valid__box}>
+                            <Input
+                                idNameHtmlFor='username'
+                                type='text'
+                                labelText='Username'
+                                value={registerForm.username}
+                                handleChange={handleChange}
+                            />
+                            {validationErrors.username && (
+                                <p className={styles.warning}>{validationErrors.username}</p>
+                            )}
+                        </div>
                         <Input
                             idNameHtmlFor='email'
                             type='email'
@@ -81,27 +119,35 @@ const RegisterForm = () => {
                         />
                     </div>
                     <div className={styles.inputs__pos}>
-                        <Input
-                            idNameHtmlFor='password'
-                            type='password'
-                            placeholder='********'
-                            labelText='Password'
-                            value={registerForm.password}
-                            handleChange={handleChange}
-                        />
-                        <Input
-                            idNameHtmlFor='checkpass'
-                            type='password'
-                            placeholder='********'
-                            labelText='Confirm password'
-                            value={registerForm.checkpass}
-                            handleChange={handleChange}
-                        />
+                        <div className={styles.valid__box}>
+                            <Input
+                                idNameHtmlFor='password'
+                                type='password'
+                                placeholder='********'
+                                labelText='Password'
+                                value={registerForm.password}
+                                handleChange={handleChange}
+                            />
+                            {validationErrors.password && (
+                                <p className={styles.warning}>{validationErrors.password}</p>
+                            )}
+                        </div>
+                        <div className={styles.valid__box}>
+                            <Input
+                                idNameHtmlFor='checkpass'
+                                type='password'
+                                placeholder='********'
+                                labelText='Confirm password'
+                                value={registerForm.checkpass}
+                                handleChange={handleChange}
+                            />
+                            {
+                                isPasswordCorrect || validationErrors.checkpass ? <></> 
+                                :   
+                                <p className={styles.warning}>Password mismatch</p>
+                            }
+                        </div>
                     </div>
-                    {isPasswordCorrect ? <></> 
-                        :
-                        <p className={styles.warning}>Password mismatch</p>
-                    }
                     <div>
                         <p className={styles.lng__label}>Language (You can change later):</p>
                         <ChooseLng/>
