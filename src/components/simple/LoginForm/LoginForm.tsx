@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './LoginForm.module.scss';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useActions } from '../../../hooks/useActions';
+import Input from '../../UI/Input/Input';
 
 interface ILogin {
     handleChangeChoose: () => void
@@ -29,17 +30,11 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
             .catch(() => alert('Invalid user!'));
     }
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
         setUserLogin({
             ...userLogin,
-            email: e.target.value
-        });
-    }
-
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUserLogin({
-            ...userLogin,
-            password: e.target.value
+            [name]: value
         });
     }
 
@@ -56,26 +51,22 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
         <div className={styles.login__form}>
             <h2>Log in</h2>
             <form onSubmit={handleFormSubmit} className={styles.form}>
-                <div className={styles.input__box}>
-                    <label htmlFor='email'>E-mail</label>
-                    <input
-                        name='email' 
-                        type="email" 
-                        placeholder='yourEmail@gmail.com'
-                        value={userLogin.email}
-                        onChange={handleEmailChange}
-                    />
-                </div>
-                <div className={styles.input__box}>
-                    <label htmlFor='password'>Password</label>
-                    <input 
-                        name='password' 
-                        type="password" 
-                        placeholder='********'
-                        value={userLogin.password}
-                        onChange={handlePasswordChange}
-                    />
-                </div>
+                <Input
+                    idNameHtmlFor='email'
+                    type='email'
+                    placeholder='yourEmail@gmail.com'
+                    labelText='E-mail'
+                    value={userLogin.email}
+                    handleChange={handleChange}
+                />
+                <Input
+                    idNameHtmlFor='password'
+                    type='password'
+                    placeholder='********'
+                    labelText='Password'
+                    value={userLogin.password}
+                    handleChange={handleChange}
+                />
                 <button className={styles.btn} type='submit'>Submit</button>
             </form>
             <p className={styles.noacc}>No acc? <u onClick={handleChangeChoose}>Register</u></p>
@@ -83,4 +74,4 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
     )
 }
 
-export default LoginForm
+export default LoginForm;

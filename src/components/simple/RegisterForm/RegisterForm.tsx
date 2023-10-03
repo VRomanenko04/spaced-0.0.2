@@ -4,6 +4,7 @@ import ava from '../../../assets/imgs/Rectangle 46.png'
 import { useState, useEffect } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import Input from '../../UI/Input/Input';
 
 const RegisterForm = () => {
     const [registerForm, setRegisterForm] = useState({
@@ -63,57 +64,44 @@ const RegisterForm = () => {
                 </div>
                 <form onSubmit={handleSubmitForm} className={styles.form}>
                     <div className={styles.inputs__pos}>
-                        <div className={styles.input__box}>
-                            <label htmlFor="username">Username</label>
-                            <input 
-                                id='username'
-                                type="text" 
-                                name='username' 
-                                value={registerForm.username}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.input__box}>
-                            <label htmlFor="email">Email</label>
-                            <input 
-                                id='email'
-                                type="email" 
-                                name='email' 
-                                placeholder='yourEmail@gmail.com' 
-                                value={registerForm.email}
-                                onChange={handleChange}
-                            />
-                        </div>
+                        <Input
+                            idNameHtmlFor='username'
+                            type='text'
+                            labelText='Username'
+                            value={registerForm.username}
+                            handleChange={handleChange}
+                        />
+                        <Input
+                            idNameHtmlFor='email'
+                            type='email'
+                            placeholder='yourEmail@gmail.com' 
+                            labelText='E-mail'
+                            value={registerForm.email}
+                            handleChange={handleChange}
+                        />
                     </div>
                     <div className={styles.inputs__pos}>
-                        <div className={styles.input__box}>
-                            <label htmlFor="password">Password</label>
-                            <input 
-                                id='password'
-                                type="password" 
-                                name='password' 
-                                placeholder='********' 
-                                value={registerForm.password}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.input__box}>
-                            <label htmlFor="checkpass">Confirm password</label>
-                            <input 
-                                id='checkpass'
-                                type="password" 
-                                name='checkpass' 
-                                placeholder='********' 
-                                value={registerForm.checkpass}
-                                onChange={handleChange}
-                            />
-                            {isPasswordCorrect ? 
-                                <></> 
-                                :
-                                <p className={styles.warning}>Password mismatch</p>
-                            }
-                        </div>
+                        <Input
+                            idNameHtmlFor='password'
+                            type='password'
+                            placeholder='********'
+                            labelText='Password'
+                            value={registerForm.password}
+                            handleChange={handleChange}
+                        />
+                        <Input
+                            idNameHtmlFor='checkpass'
+                            type='password'
+                            placeholder='********'
+                            labelText='Confirm password'
+                            value={registerForm.checkpass}
+                            handleChange={handleChange}
+                        />
                     </div>
+                    {isPasswordCorrect ? <></> 
+                        :
+                        <p className={styles.warning}>Password mismatch</p>
+                    }
                     <div>
                         <p className={styles.lng__label}>Language (You can change later):</p>
                         <ChooseLng/>
