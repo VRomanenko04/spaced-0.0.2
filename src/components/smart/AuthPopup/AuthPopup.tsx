@@ -1,7 +1,7 @@
 import Popup from '../../UI/Popup/Popup';
 import styles from './AuthPopup.module.scss';
-import RegisterForm from '../../simple/RegisterForm/RegisterForm';
-import LoginForm from '../../simple/LoginForm/LoginForm';
+import RegisterForm from '../RegisterForm/RegisterForm';
+import LoginForm from '../LoginForm/LoginForm';
 
 interface IAuthPopup {
     active: boolean

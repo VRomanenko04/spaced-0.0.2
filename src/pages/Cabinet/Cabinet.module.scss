@@ -1,0 +1,19 @@
+@import '../../styles/var';
+
+.root__style {
+    background-color: #1A1A1A;
+    font-family: $fontIndivisible;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 60px 40px;
+}
+
+.profile__head {
+    color: #fff;
+    font-size: 38px;
+    margin-bottom: 5px;
+    margin-left: 25px;
+}

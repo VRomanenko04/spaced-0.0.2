@@ -1,0 +1,38 @@
+.content__block {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 840px;
+    height: 520px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #D9D9D9 0%, #000 100%);
+    color: #fff;
+    position: relative;
+    overflow:hidden
+}
+
+.planet {
+    position: absolute;
+    width: 630px;
+    height: auto;
+    top: 80px;
+}
+
+.lower__bar {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+
+    h4 {
+        font-size: 60px;
+        margin-right: 300px;
+    }
+
+    .string {
+        width: 327px;
+        height: 16px;
+        border-radius: 22px;
+        border: 3px solid #FFF;
+        background: #ED9626;
+    }
+}
