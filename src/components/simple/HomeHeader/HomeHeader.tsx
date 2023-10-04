@@ -16,14 +16,6 @@ const HomeHeader = () => {
         setIsActive(true);
     }
 
-    const handleChangeChoose = () => {
-        setIsActive(false);
-        setTimeout(() => {
-            setIsChosed('Register');
-            setIsActive(true);
-        }, 400)
-    }
-
     return (
         <header className={styles.header}>
             <div className={styles.container}>
@@ -38,7 +30,7 @@ const HomeHeader = () => {
                 active={isActive}
                 setActive={setIsActive}
                 isChosed={isChosed}
-                handleChangeChoose={handleChangeChoose}
+                setChosed={setIsChosed}
             />
         </header>
     )

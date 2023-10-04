@@ -7,10 +7,19 @@ interface IAuthPopup {
     active: boolean
     setActive: React.Dispatch<React.SetStateAction<boolean>>
     isChosed: string
-    handleChangeChoose: () => void
+    setChosed: React.Dispatch<React.SetStateAction<string>>
 }
 
-const AuthPopup = ({ active, setActive, isChosed, handleChangeChoose }: IAuthPopup) => {
+const AuthPopup = ({ active, setActive, isChosed, setChosed }: IAuthPopup) => {
+    
+    const handleChangeChoose = () => {
+        setActive(false);
+        setTimeout(() => {
+            setChosed('Register');
+            setActive(true);
+        }, 400)
+    }
+
     return (
         <Popup extendClass={styles.popup} active={active} setActive={setActive}>
             {

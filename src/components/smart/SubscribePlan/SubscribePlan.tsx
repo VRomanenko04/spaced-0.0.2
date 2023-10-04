@@ -2,19 +2,29 @@ import { useState } from 'react';
 import styles from './SubscribePlan.module.scss';
 import Selector from '../../UI/Selector/Selector';
 import { useActions } from '../../../hooks/useActions';
+import { useAuth } from '../../../hooks/useAuth';
 
 import basicImg from '../../../assets/imgs/basic-planet.png';
 import ultraImg from '../../../assets/imgs/ultra-planet.png';
+import AuthPopup from '../AuthPopup/AuthPopup';
 
 
 const SubscribePlan = () => {
     const [selectedPlan, setSelectedPlan] = useState('basic');
+    const [isActive, setIsActive] = useState(false);
+    const [isChosed, setIsChosed] = useState('LogIn');
 
     const { setChosenPlan } = useActions();
 
+    const { isAuth } = useAuth();
+
     const handleClick = () => {
-        const chosenPlan = setChosenPlan(selectedPlan);
-        alert(`Your chose plan ${chosenPlan.payload}`);
+        if (isAuth) {
+            const chosenPlan = setChosenPlan(selectedPlan);
+            alert(`Your chose plan ${chosenPlan.payload}`);
+        } else {
+            setIsActive(true);
+        }
     }
 
     return (
@@ -56,6 +66,12 @@ const SubscribePlan = () => {
             </div>
             <button onClick={handleClick} className={styles.btn}>Got it</button>
         </div>
+        <AuthPopup
+            isChosed={isChosed}
+            active={isActive}
+            setActive={setIsActive}
+            setChosed={setIsChosed}
+        /> 
     </div>
     )
 }
