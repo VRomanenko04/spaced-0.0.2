@@ -3,21 +3,28 @@ import GamePrevBlock from "../../components/ordinary/GamePrevBlock/GamePrevBlock
 import HomeFooter from "../../components/ordinary/HomeFooter/HomeFooter"
 import HomeHeader from "../../components/simple/HomeHeader/HomeHeader"
 import SubscribeBlock from "../../components/ordinary/SubscribeBlock/SubscribeBlock";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import styles from './Home.module.scss';
 
 
 const Home = () => {
-    return (
+    const { isAuth } = useAuth();
+
+    return !isAuth ? (
         <>
             <HomeHeader/>
-            <main>
+            <main className={styles.background}>
                 <AboutBlock/>
                 <GamePrevBlock/>
                 <SubscribeBlock/>
             </main>
-            <footer>
+            <footer className={styles.background}>
                 <HomeFooter/>
             </footer>
         </>
+    ) : (
+        <Navigate to="/cabinet"/>
     )
 }
 
