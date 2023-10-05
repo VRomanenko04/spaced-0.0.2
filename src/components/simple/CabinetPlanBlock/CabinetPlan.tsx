@@ -1,9 +1,16 @@
 import styles from './CabinetPlan.module.scss';
 import ultraPlanet from '../../../assets/imgs/ultra-planet.png'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const CabinetPlan = () => {
+
+    const navigate = useNavigate();
+
+    const handleManagePlanClick = () => {
+        navigate('/plans');
+    };
+
     return (
         <section className={styles.container}>
             <div className={styles.content__block}>
@@ -13,11 +20,9 @@ const CabinetPlan = () => {
                     <div className={styles.string}></div>
                 </div>
             </div>
-            <Link to='/plans'>
-                <div className={styles.manage__plan}>
-                    <p>manage your plan</p>
-                </div>
-            </Link>
+            <div className={styles.manage__plan} onClick={handleManagePlanClick}>
+                <p>manage your plan</p>
+            </div>
         </section>
     )
 }

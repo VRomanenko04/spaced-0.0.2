@@ -36,6 +36,17 @@
         background: #ED9626;
     }
 }
+
 .manage__plan {
-    
+    margin-top: 15px;
+    width: 800px;
+    height: 63px;
+    border: 4px solid #FFF;
+    background: linear-gradient(270deg, #5F5F5F 0%, #000 100%);
+    padding-left: 30px;
+    color: #fff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
