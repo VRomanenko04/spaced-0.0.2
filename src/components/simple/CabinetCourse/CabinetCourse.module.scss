@@ -1,0 +1,37 @@
+.block {
+    width: 270px;
+    height: 170px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #b1b1b1 0%, #000 100%);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin-right: 15px;
+    color: #fff;
+
+    img {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        top: 25px;
+    }
+
+    h6 {
+        position: absolute;
+        z-index: 2;
+        top: 10px;
+        left: 10px;
+        font-size: 24px;
+    }
+}
+
+.progress__bar {
+    position: absolute;
+    bottom: 10px;
+    width: 245px;
+    height: 16px;
+    border-radius: 10px;
+    background: #FFF;
+    border: 1px solid #fff;
+}
