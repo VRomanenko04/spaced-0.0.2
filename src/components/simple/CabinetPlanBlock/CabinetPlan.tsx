@@ -1,5 +1,6 @@
 import styles from './CabinetPlan.module.scss';
 import ultraPlanet from '../../../assets/imgs/ultra-planet.png'
+import { Link } from 'react-router-dom';
 
 
 const CabinetPlan = () => {
@@ -12,6 +13,11 @@ const CabinetPlan = () => {
                     <div className={styles.string}></div>
                 </div>
             </div>
+            <Link to='/plans'>
+                <div className={styles.manage__plan}>
+                    <p>manage your plan</p>
+                </div>
+            </Link>
         </section>
     )
 }
