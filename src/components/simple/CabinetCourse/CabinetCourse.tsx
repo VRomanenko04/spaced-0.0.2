@@ -13,10 +13,15 @@ const CabinetCourse = (props: Props) => {
 
     const fillerWidth = (progress / 100) * maxPixels;
 
+    let heigth = 100;
+    if (fillerWidth < 14) {
+        heigth = 95;
+    }
+
     const fillerStyle = {
         width: `${fillerWidth}px`,
-        height: "100%",
-        borderRadius: '10px',
+        height: `${heigth}%`,
+        borderRadius: `10px`,
         backgroundColor: "#ED9626", 
     };
 
