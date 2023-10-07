@@ -150,7 +150,7 @@ const RegisterForm = () => {
                     </div>
                     <div>
                         <p className={styles.lng__label}>Language (You can change later):</p>
-                        <ChooseLng/>
+                        <ChooseLng isArrow={true}/>
                     </div>
                     <button className={styles.btn} type='submit'>Submit</button>
                 </form>
