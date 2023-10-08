@@ -33,6 +33,32 @@
     }
 }
 
+.username__input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    width: 110px;
+    font-weight: 600;
+
+    &:focus {
+        outline: none;
+        caret-color: #fff;
+    }
+}
+
+.editUsername {
+    display: flex;
+    flex-direction: row;
+
+    img {
+        height: 20px;
+        width: auto;
+        margin-top: 3px;
+        margin-left: 5px;
+    }
+}
+
 .mashiine {
     position: absolute;
     bottom: 10px;
