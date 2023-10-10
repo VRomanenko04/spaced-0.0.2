@@ -38,7 +38,7 @@ const CabinetInfoBlock = () => {
         Cookies.set(cookieKey, inputValue);
         setEditableText(inputValue);
         setIsEditing(false);
-        alert('Текст сохранен в куках.');
+        window.location.reload();
     };
 
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
