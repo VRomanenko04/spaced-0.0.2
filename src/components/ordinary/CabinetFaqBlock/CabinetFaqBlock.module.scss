@@ -36,3 +36,28 @@
 .arrow {
     font-size: 26px;
 }
+
+.questions__block {
+    list-style: none;
+    width: 465px;
+    overflow: hidden;
+    transition: expand 1s ease;
+
+    .question {
+        cursor: pointer;
+        color: rgb(46, 46, 252);
+        background-color: #D9D9D9;
+        border-top: 1px solid #000;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+    }
+
+    .answer {
+        height: auto;
+        background-color: #D9D9D9;
+        border-top: 1px solid #000;
+        padding: 15px;
+    }
+}
