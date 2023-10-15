@@ -1,7 +1,9 @@
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion'
 import styles from './CabinetFaqBlock.module.scss';
 import questIcon from '../../../assets/imgs/Question_icon.svg';
 import { FaAngleDown } from 'react-icons/fa';
-import { SetStateAction, useState } from 'react';
+
 
 const FAQ = [
     {
@@ -20,8 +22,7 @@ const FAQ = [
         quest: 'I didn’t receive the certificate, what should I do?',
         answer: 'If you have not received a certificate by email, this may mean that the course was not 100% completed, but if you are aware that it simply did not arrive, contact our email space_dev_sup@gmail.com'
     }
-]
-
+];
 
 
 const CabinetFaqBlock = () => {
@@ -47,26 +48,47 @@ const CabinetFaqBlock = () => {
                     <FaAngleDown className={styles.arrow}/>
                 </div>
             </div>
-            {
-                isFAQOpen ? (
-                    <ul className={styles.questions__block}>
+            <AnimatePresence mode='wait'>
+                {isFAQOpen && (
+                    <motion.ul 
+                        className={styles.questions__block}
+                        initial={{ height: 0 }}
+                        animate={{ height:'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                    >
                         {
                             FAQ.map((question, index) => (
                                 <li key={index}>
                                     <div className={`${styles.question} ${activeQuestion === index ? styles.question__active : ''}`} onClick={() => handleQuestionClick(index)}>
                                         {question.quest}
                                     </div>
-                                    {activeQuestion === index && (
-                                        <div className={styles.answer}>{question.answer}</div>
-                                    )}
+                                    <AnimatePresence mode='wait'>
+                                        {activeQuestion === index && (
+                                            <motion.div
+                                                className={styles.answer}
+                                                initial={{ height: 0 }}
+                                                animate={{ height: 'auto' }}
+                                                exit={{ height: 0 }}
+                                                transition={{ 
+                                                    duration: 0.3,
+                                                    type: "spring",
+                                                    damping: 13,
+                                                    stiffness: 50
+                                                }}
+                                            >
+                                                <p>
+                                                    {question.answer}
+                                                </p>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </li>
                             ))
                         }
-                    </ul>
-                ) : (
-                    <></>
-                )
-            }
+                    </motion.ul>
+                )}
+            </AnimatePresence>
         </>
     )
 }

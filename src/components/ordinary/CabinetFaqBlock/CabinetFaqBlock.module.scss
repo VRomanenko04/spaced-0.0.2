@@ -41,7 +41,6 @@
     list-style: none;
     width: 465px;
     overflow: hidden;
-    transition: expand 1s ease;
 
     .question {
         cursor: pointer;
@@ -55,9 +54,12 @@
     }
 
     .answer {
-        height: auto;
         background-color: #D9D9D9;
         border-top: 1px solid #000;
-        padding: 15px;
+        overflow: hidden;
+        
+        p {
+            padding: 15px;
+        }
     }
 }
