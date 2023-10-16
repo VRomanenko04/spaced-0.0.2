@@ -1,6 +1,7 @@
 import styles from './Selector.module.scss';
 import { FaAngleDown } from 'react-icons/fa';
 import { Dispatch, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type SelectorProps = {
     setSelectedPlan: Dispatch<React.SetStateAction<string>>
@@ -13,7 +14,7 @@ const Selector = (props: SelectorProps) => {
     const options = ["Basic", "Ultra"];
 
     const handleChangeSelect = () => {
-        isOptions ? setIsOptions(false) : setIsOptions(true);
+        setIsOptions(prevIsOptions => !prevIsOptions);
     }
 
     const handleOptionClick = (option: string) => {
@@ -27,16 +28,34 @@ const Selector = (props: SelectorProps) => {
         setIsOptions(false);
     }
 
-    const ShowList = isOptions ? `${styles.show__options}` : `${styles.off__options}`;
-
     return (
         <div className={styles.selector}>
-            <button className={styles.select__btn} onClick={handleChangeSelect}>{selectorBtn} <FaAngleDown /></button>
-            <ul className={ShowList}>
-                {options.map((option, index) => (
-                    <li onClick={() => handleOptionClick(option)} key={index}>{option}</li>
-                ))}
-            </ul>
+            <div 
+                className={styles.select__btn}
+                onClick={handleChangeSelect}
+            >
+                {selectorBtn}
+                <FaAngleDown/>
+            </div>
+            <AnimatePresence>
+                { isOptions && (
+                    <motion.ul
+                        className={styles.show__options}
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{
+                            duration: 0.5
+                        }}
+                    >
+                        {options.map((option, index) => (
+                            <li onClick={() => handleOptionClick(option)} key={index}>
+                                {option}
+                            </li>
+                        ))}
+                    </motion.ul>
+                )}
+            </AnimatePresence>
         </div>
     )
 }

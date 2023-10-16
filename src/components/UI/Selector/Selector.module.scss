@@ -5,9 +5,6 @@
     flex-direction: column !important;
     position: relative;
 
-    .off__options {
-        display: none;
-    }
     .show__options {
         list-style: none;
         display: flex;
@@ -15,14 +12,16 @@
         align-items: center;
         justify-content: center;
         position: absolute;
-        top: 53px;
-        margin: 0 0 0 -30px;
+        top: 62.5px;
+        overflow: hidden;
+
         li {
             font-size: 20px;
-            width: 138px;
+            width: 130px;
             height: 30px;
             padding-top: 5px;
             padding-left: 10px;
+            margin-right: 10px;
             margin-top: 0;
             background-color: #313131;
             border: 1px solid #FFF;
@@ -44,7 +43,7 @@
     font-size: 20px;
     font-family: $fontIndivisible;
     font-weight: 600;
-    width: 150px;
-    height: 43px;
+    width: 120px;
+    height: 30px;
     cursor: pointer;
 }
