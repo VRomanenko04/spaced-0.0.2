@@ -8,11 +8,6 @@ const HomeHeader = () => {
     const [isActive, setIsActive] = useState(false)
     const [isChosed, setIsChosed] = useState('');
 
-    const variants = {
-        hidden: { background: 'rgba(0,0,0,1)' },
-        visible: { background: 'linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,4,23,1) 38%, rgba(236,148,34,1) 80%, rgba(249,249,249,1) 99%)' }
-    }
-
     const handleLogin = () => {
         setIsChosed('LogIn');
         setIsActive(true);
@@ -49,4 +44,4 @@ const HomeHeader = () => {
     )
 }
 
-export default HomeHeader
+export default HomeHeader;
