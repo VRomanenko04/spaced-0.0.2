@@ -1,8 +1,20 @@
+import { motion } from 'framer-motion';
 import styles from './AboutBlock.module.scss';
 import rocket from '../../../assets/imgs/rocket.webp';
 import SocialIcons from '../../UI/SocialIcons/SocialIcons';
 
 const AboutBlock = () => {
+    const rocketVariants = {
+        initial: {
+            y: 400, 
+            x: -400, 
+        },
+        animate: {
+            y: -500, 
+            x: 500, 
+        },
+    };
+
     return (
         <section className={styles.about__container}>
         <div>
@@ -13,11 +25,23 @@ const AboutBlock = () => {
             </div>
             <SocialIcons extraClass={styles.about__social}/>
         </div>  
-        <div>
-            <img className={styles.rocket} src={rocket} alt="rocket" />
-        </div>
+        <motion.div
+            variants={rocketVariants}
+            initial="initial"
+            animate='animate'
+            transition={{
+                duration: 12,
+                repeat: Infinity,
+            }}
+        >
+            <img 
+                className={styles.rocket} 
+                src={rocket} 
+                alt="rocket" 
+            />
+        </motion.div>
     </section>
     )
 }
 
-export default AboutBlock
+export default AboutBlock;
