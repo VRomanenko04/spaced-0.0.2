@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ChooseLng.module.scss'
 import Cookies from 'js-cookie';
 import { FaAngleDown } from 'react-icons/fa';
@@ -64,20 +65,31 @@ const ChooseLng = ({isArrow}: ILng) => {
                     : <></>
                 }
             </div>
-            {isSelectOpen && (
-                <ul className={styles.prapor__con}>
-                    {
-                        lngs.map((lng, index) => (
+            <AnimatePresence mode='wait'>
+                {isSelectOpen && (
+                    <motion.ul 
+                        className={styles.prapor__con}
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{
+                            duration: 0.5
+                        }}
+                    >
+                        {lngs.map((lng, index) => (
                             selectedLng !== lng.name && (
-                                <li className={styles.prapor} key={index} onClick={() => handleChangeLng(lng.name)}>
+                                <motion.li
+                                    className={styles.prapor} 
+                                    key={index} 
+                                    onClick={() => handleChangeLng(lng.name)}
+                                >
                                     <img src={lng.img} alt={lng.name}/>
-                                </li>
+                                </motion.li>
                             )
-                        ))
-                    }
-                </ul>
-            )
-            }
+                        ))}
+                    </motion.ul>
+                )}
+            </AnimatePresence>
         </>
     )
 }
