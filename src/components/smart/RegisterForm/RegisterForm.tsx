@@ -148,10 +148,10 @@ const RegisterForm = () => {
                             }
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <p className={styles.lng__label}>Language (You can change later):</p>
                         <ChooseLng isArrow={true}/>
-                    </div>
+                    </div> */}
                     <button className={styles.btn} type='submit'>Submit</button>
                 </form>
             </div>
