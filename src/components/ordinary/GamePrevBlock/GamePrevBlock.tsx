@@ -28,12 +28,14 @@ const GamePrevBlock = () => {
             await controls.start({
                 x: animations[index].x,
                 y: animations[index].y,
-                transition: { duration: 7, ease: "linear" },
+                rotate: 360,
+                transition: { duration: 12, ease: "linear" },
             });
             await controls.start({
                 x: 0,
                 y: 0,
-                transition: { duration: 7, ease: "linear" },
+                rotate: 0,
+                transition: { duration: 12, ease: "linear" },
             });
         }
     };
