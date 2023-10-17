@@ -6,9 +6,10 @@ import Input from '../../UI/Input/Input';
 
 interface ILogin {
     handleChangeChoose: () => void
+    withoutReg?: boolean
 }
 
-const LoginForm = ({ handleChangeChoose }: ILogin) => {
+const LoginForm = ({ handleChangeChoose, withoutReg }: ILogin) => {
     const [userLogin, setUserLogin] = useState({
         email: '',
         password: ''
@@ -69,7 +70,9 @@ const LoginForm = ({ handleChangeChoose }: ILogin) => {
                 />
                 <button className={styles.btn} type='submit'>Submit</button>
             </form>
-            <p className={styles.noacc}>No acc? <u onClick={handleChangeChoose}>Register</u></p>
+            {!withoutReg && (
+                <p className={styles.noacc}>No acc? <u onClick={handleChangeChoose}>Register</u></p>
+            )}
         </div>
     )
 }

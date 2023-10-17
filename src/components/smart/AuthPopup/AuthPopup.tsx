@@ -8,9 +8,10 @@ interface IAuthPopup {
     setActive: React.Dispatch<React.SetStateAction<boolean>>
     isChosed: string
     setChosed: React.Dispatch<React.SetStateAction<string>>
+    withoutReg?: boolean
 }
 
-const AuthPopup = ({ active, setActive, isChosed, setChosed }: IAuthPopup) => {
+const AuthPopup = ({ active, setActive, isChosed, setChosed, withoutReg }: IAuthPopup) => {
     
     const handleChangeChoose = () => {
         setActive(false);
@@ -24,7 +25,7 @@ const AuthPopup = ({ active, setActive, isChosed, setChosed }: IAuthPopup) => {
         <Popup extendClass={styles.popup} active={active} setActive={setActive}>
             {
                 isChosed === 'LogIn' ?
-                    <LoginForm handleChangeChoose={handleChangeChoose}/>
+                    <LoginForm handleChangeChoose={handleChangeChoose} withoutReg={withoutReg}/>
                 : isChosed === 'Register' ?
                     <RegisterForm/>
                 :
