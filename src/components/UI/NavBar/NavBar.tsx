@@ -2,7 +2,7 @@ import styles from './NavBar.module.scss';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/imgs/spaceDev_logo.svg';
 import Cookies from 'js-cookie';
-// import { useAuth } from '../../../hooks/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 import AuthPopup from '../../smart/AuthPopup/AuthPopup';
 import { useState } from 'react';
 
@@ -11,9 +11,9 @@ const cookieKey = 'username';
 const NavBar = () => {
     const [isActive, setIsActive] = useState(false);
     const [isChosed, setIsChosed] = useState('LogIn');
-    // const isAuth = useAuth();
 
     const userName = Cookies.get(cookieKey);
+    const isAuth = useAuth();
 
     return (
         <div className={styles.container}>
@@ -30,11 +30,7 @@ const NavBar = () => {
                         <li><Link to='/courses' className={styles.menu__item}>courses</Link></li>
                     </ul>
                     <div className={styles.profile}>
-                        <p><strong>{userName}</strong></p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                            <circle cx="25" cy="25" r="25" fill="#D9D9D9"/>
-                        </svg>
-                        {/* {isAuth ? (
+                        {!isAuth.isAuth ? (
                             <div onClick={() => setIsActive(true)}>Log In</div>
                         ) : (
                             <>
@@ -43,7 +39,7 @@ const NavBar = () => {
                                     <circle cx="25" cy="25" r="25" fill="#D9D9D9"/>
                                 </svg>
                             </>
-                        )} */}
+                        )}
                     </div>
                 </div>
             </nav>

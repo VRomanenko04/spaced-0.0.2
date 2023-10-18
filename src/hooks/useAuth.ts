@@ -4,9 +4,18 @@ import { RootState } from "../store/store";
 
 export const useAuth = () => {
     const { id, email, token }: IUser = useSelector((state: RootState) => state.userAuth);
+    console.log(useSelector((state: RootState) => state.userAuth))
+    let isAuth;
+
+    if (email === null || email === undefined) {
+        isAuth = false;
+    } else {
+        isAuth = true;
+    }
+    console.log(isAuth)
 
     return {
-        isAuth: !!email,
+        isAuth,
         email,
         token,
         id
