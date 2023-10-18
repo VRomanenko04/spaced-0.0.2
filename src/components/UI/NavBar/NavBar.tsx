@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { useAuth } from '../../../hooks/useAuth';
 import AuthPopup from '../../smart/AuthPopup/AuthPopup';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const cookieKey = 'username';
 
@@ -31,7 +32,7 @@ const NavBar = () => {
                     </ul>
                     <div className={styles.profile}>
                         {!isAuth.isAuth ? (
-                            <div onClick={() => setIsActive(true)}>Log In</div>
+                            <div className={styles.login} onClick={() => setIsActive(true)}>Log In</div>
                         ) : (
                             <>
                                 <p><strong>{userName}</strong></p>
