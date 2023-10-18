@@ -20,13 +20,29 @@ const userAuthSlice = createSlice({
             state.email = action.payload.email;
             state.token = action.payload.token;
             state.id = action.payload.id;
+
+            sessionStorage.setItem("user", JSON.stringify(state));
         },
         removeUser(state) {
             state.email = null;
             state.token = null;
             state.id = null;
+
+            sessionStorage.removeItem("user");
         }
     }
-})
+});
+
+
+export const initializeUser = () => {
+    const storedUserData = sessionStorage.getItem("user");
+    if (storedUserData) {
+        const decodedData = decodeURIComponent(storedUserData);
+        const userData = JSON.parse(decodedData);
+        return userAuthSlice.actions.setUser(userData);
+    }
+    return null;
+}
+
 
 export const { reducer, actions } = userAuthSlice;

@@ -3,8 +3,15 @@ import Home from "../pages/Home/Home"
 import Cabinet from "../pages/Cabinet/Cabinet"
 import Courses from "../pages/Courses/Courses"
 import PlansPage from "../pages/Plans/PlansPage"
+import { initializeUser } from "../store/userAuth/userAuth.slice"
+import { store } from "../store/store"
 
 const App = () => {
+
+  const userInitializationAction = initializeUser();
+  if (userInitializationAction) {
+    store.dispatch(userInitializationAction);
+}
 
   return (
     <>
