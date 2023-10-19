@@ -22,6 +22,7 @@ const SubscribePlan = () => {
         if (isAuth) {
             const chosenPlan = setChosenPlan(selectedPlan);
             alert(`Your chose plan ${chosenPlan.payload}`);
+            window.location.reload();
         } else {
             setIsActive(true);
         }

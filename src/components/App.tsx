@@ -5,13 +5,19 @@ import Courses from "../pages/Courses/Courses"
 import PlansPage from "../pages/Plans/PlansPage"
 import { initializeUser } from "../store/userAuth/userAuth.slice"
 import { store } from "../store/store"
+import { initializePlan } from "../store/subscribePlan/subscribePlan.slice"
 
 const App = () => {
 
   const userInitializationAction = initializeUser();
   if (userInitializationAction) {
     store.dispatch(userInitializationAction);
-}
+  }
+
+  const planInitializationAction = initializePlan();
+  if (planInitializationAction) {
+    store.dispatch(planInitializationAction);
+  }
 
   return (
     <>
