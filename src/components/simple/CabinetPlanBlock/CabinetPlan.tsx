@@ -1,5 +1,6 @@
 import styles from './CabinetPlan.module.scss';
-import ultraPlanet from '../../../assets/imgs/ultra-planet.png'
+import ultraPlanet from '../../../assets/imgs/ultra-planet.png';
+import basicPlanet from '../../../assets/imgs/basic-planet.png';
 import { Link, useNavigate } from 'react-router-dom';
 import ProgressBar from '../../UI/ProgressBar/ProgressBar';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
@@ -30,7 +31,12 @@ const CabinetPlan = () => {
             {chosenPlan ? (
                 <>
                     <div className={styles.content__block}>
-                        <img className={styles.planet} src={ultraPlanet} alt="planetImg" />
+                        {chosenPlan === 'basic' && (
+                            <img className={styles.planet} src={basicPlanet} alt="basicPlanet" />
+                        )}
+                        {chosenPlan === 'ultra' && (
+                            <img className={styles.planet} src={ultraPlanet} alt="ultraPlanet" />
+                        )}
                         <div className={styles.lower__bar}>
                             <h4>{chosenPlanWithCapital}</h4>
                             <ProgressBar
