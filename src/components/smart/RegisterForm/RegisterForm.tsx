@@ -4,6 +4,7 @@ import ava from '../../../assets/imgs/Rectangle 46.png'
 import { useState, useEffect } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import Input from '../../UI/Input/Input';
 
 const RegisterForm = () => {
@@ -25,8 +26,10 @@ const RegisterForm = () => {
 
     const { setUser } = useActions();
 
-    const handleRegister = (email: string, password: string) => {
+    const UserRegister = (email: string, password: string) => {
+        const database = getDatabase();
         const auth = getAuth();
+
         createUserWithEmailAndPassword(auth, email, password)
             .then(({ user }) => {
                 console.log(user);
@@ -35,8 +38,17 @@ const RegisterForm = () => {
                     id: user.uid,
                     token: (user as any).accessToken,
                 })
+                return user;
             })
-            .catch(console.error);
+            .then (( user ) => {
+                const userRef = ref(database, 'users/' + user.uid);
+
+                set(userRef, {
+                    username: registerForm.username,
+                    email: email,
+                });
+            })
+            .catch(console.error)
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +85,7 @@ const RegisterForm = () => {
             setValidationErrors(errors);
         } else {
             // Если ошибок нет, отправляем форму
-            handleRegister(registerForm.email, registerForm.password);
+            UserRegister(registerForm.email, registerForm.password);
             setRegisterForm({
                 username: '',
                 email: '',
