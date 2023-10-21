@@ -14,6 +14,6 @@ export const fetchUserData = async (uid: string) => {
         }
     } catch (error) {
         console.error('Ошибка при чтении данных:', error);
-        throw error; // Можно выбросить ошибку для обработки в вызывающем коде
+        throw error;
     }
 };

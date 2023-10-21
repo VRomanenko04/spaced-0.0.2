@@ -4,47 +4,49 @@ import { useAuth } from '../../../hooks/useAuth';
 import mashiine from '../../../assets/imgs/mashiine.svg';
 import penIcon from '../../../assets/imgs/edit.png';
 import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import { getDatabase, ref, update } from 'firebase/database';
 
 type UserName = {
     username: string
 }
 
-const cookieKey = 'username';
-
 const CabinetInfoBlock = ({ username }: UserName) => {
-    let usernameText = username;
-    const [editableText, setEditableText] = useState(usernameText);
+    const [editableText, setEditableText] = useState(username);
     const [inputValue, setInputValue] = useState('');
     const [isEditing, setIsEditing] = useState(false);
 
-    console.log(editableText)
-
     useEffect(() => {
-        const username = Cookies.get(cookieKey);
-        if (username) {
-            setEditableText(username);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (isEditing) {
-            setEditableText(inputValue);
-        }
-    }, [inputValue, isEditing]);
+        setEditableText(username);
+        setInputValue(username)
+    }, [username]);
 
     const userInfo = useAuth();
 
     const startEditing = () => {
-        setInputValue(editableText);
         setIsEditing(true);
     };
 
     const saveText = () => {
-        Cookies.set(cookieKey, inputValue);
-        setEditableText(inputValue);
-        setIsEditing(false);
-        window.location.reload();
+        const uid = userInfo.id;
+        if (uid !== null) {
+    
+            const database = getDatabase();
+            const userRef = ref(database, 'users/' + uid);
+
+            const updates = {
+                username: inputValue,
+            };
+
+            update(userRef, updates)
+                .then(() => {
+                    setEditableText(inputValue);
+                    setIsEditing(false);
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error('Ошибка при сохранении данных:', error);
+                });
+        }
     };
 
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +70,7 @@ const CabinetInfoBlock = ({ username }: UserName) => {
                         <div className={styles.editUsername}>
                             <input
                                 type="text"
-                                value={editableText}
+                                value={inputValue}
                                 onChange={handleTextChange}
                                 onKeyDown={handleKeyPress}
                                 className={styles.username__input}
