@@ -1,19 +1,18 @@
 import styles from './NavBar.module.scss';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/imgs/spaceDev_logo.svg';
-import Cookies from 'js-cookie';
 import { useAuth } from '../../../hooks/useAuth';
 import AuthPopup from '../../smart/AuthPopup/AuthPopup';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
-const cookieKey = 'username';
+type UserName = {
+    username: string | null
+}
 
-const NavBar = () => {
+const NavBar = ({username}: UserName) => {
     const [isActive, setIsActive] = useState(false);
     const [isChosed, setIsChosed] = useState('LogIn');
 
-    const userName = Cookies.get(cookieKey);
     const isAuth = useAuth();
 
     return (
@@ -35,7 +34,7 @@ const NavBar = () => {
                             <div className={styles.login} onClick={() => setIsActive(true)}>Log In</div>
                         ) : (
                             <>
-                                <p><strong>{userName}</strong></p>
+                                <p><strong>{ username }</strong></p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
                                     <circle cx="25" cy="25" r="25" fill="#D9D9D9"/>
                                 </svg>

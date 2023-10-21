@@ -6,13 +6,19 @@ import penIcon from '../../../assets/imgs/edit.png';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-const defaultText = 'Gustavo';
+type UserName = {
+    username: string
+}
+
 const cookieKey = 'username';
 
-const CabinetInfoBlock = () => {
-    const [editableText, setEditableText] = useState(defaultText);
+const CabinetInfoBlock = ({ username }: UserName) => {
+    let usernameText = username;
+    const [editableText, setEditableText] = useState(usernameText);
     const [inputValue, setInputValue] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+
+    console.log(editableText)
 
     useEffect(() => {
         const username = Cookies.get(cookieKey);
