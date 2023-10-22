@@ -26,29 +26,30 @@ const RegisterForm = () => {
 
     const { setUser } = useActions();
 
-    const UserRegister = (email: string, password: string) => {
-        const database = getDatabase();
-        const auth = getAuth();
+    const UserRegister = async (email: string, password: string) => {
+        try {
+            const auth = getAuth();
+            const { user } = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(user);
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(({ user }) => {
-                console.log(user);
-                setUser({
-                    email: user.email,
-                    id: user.uid,
-                    token: (user as any).accessToken,
-                })
-                return user;
-            })
-            .then (( user ) => {
-                const userRef = ref(database, 'users/' + user.uid);
+            // Добавление пользователя в базу данных
+            const database = getDatabase();
+            const userRef = ref(database, 'users/' + user.uid);
+            const userData = {
+                username: registerForm.username,
+                email: email,
+            };
+            await set(userRef, userData);
 
-                set(userRef, {
-                    username: registerForm.username,
-                    email: email,
-                });
-            })
-            .catch(console.error)
+            // Установка состояния пользователя
+            setUser({
+                email: user.email,
+                id: user.uid,
+                token: (user as any).accessToken,
+            });
+        } catch (error) {
+            console.error("Registration Error:", error);
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
