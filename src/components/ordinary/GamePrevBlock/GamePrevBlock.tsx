@@ -1,11 +1,9 @@
 import { AnimationControls, motion, useAnimation } from 'framer-motion';
 import styles from './GamePrevBlock.module.scss';
-
-import asteroid1 from '../../../assets/imgs/planet1.webp'
-import asteroid2 from '../../../assets/imgs/planet2.webp'
-import asteroid3 from '../../../assets/imgs/planet3.webp'
+import asteroid1 from '../../../assets/imgs/planet1.webp';
+import asteroid2 from '../../../assets/imgs/planet2.webp';
+import asteroid3 from '../../../assets/imgs/planet3.webp';
 import { useEffect } from 'react';
-
 
 const animations = [
     { x: 20, y: 55, style: styles.asteroid1, src: asteroid1, alt: 'asteroid1' },
@@ -13,15 +11,8 @@ const animations = [
     { x: -20, y: -10, style: styles.asteroid3, src: asteroid3, alt: 'asteroid3' },
 ];
 
-
 const GamePrevBlock = () => {
     const controlsArray = animations.map(() => useAnimation());
-
-    useEffect(() => {
-        controlsArray.forEach((controls, index) => {
-            animate(controls, index);
-        });
-    }, [controlsArray]);
 
     const animate = async (controls: AnimationControls, index: number) => {
         while (true) {
@@ -40,6 +31,20 @@ const GamePrevBlock = () => {
         }
     };
 
+    useEffect(() => {
+        const intervalIds = controlsArray.map((controls, index) => {
+            return setInterval(() => {
+                animate(controls, index);
+            }, 24000); // Период анимации
+        });
+
+        return () => {
+            intervalIds.forEach((intervalId) => {
+                clearInterval(intervalId);
+            });
+        };
+    }, [controlsArray]);
+
     return (
         <section className={styles.game_container}>
             {controlsArray.map((controls, index) => (
@@ -48,12 +53,13 @@ const GamePrevBlock = () => {
                         className={animations[index].style}
                         src={animations[index].src}
                         alt={animations[index].alt}
+                        initial={false}
                         animate={controls}
                     />
                 </div>
             ))}
         </section>
-    )
-}
+    );
+};
 
 export default GamePrevBlock;

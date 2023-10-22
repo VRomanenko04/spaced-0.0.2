@@ -25,9 +25,9 @@ const AuthPopup = ({ active, setActive, isChosed, setChosed, withoutReg }: IAuth
         <Popup extendClass={styles.popup} active={active} setActive={setActive}>
             {
                 isChosed === 'LogIn' ?
-                    <LoginForm handleChangeChoose={handleChangeChoose} withoutReg={withoutReg}/>
+                    <LoginForm setActive={setActive} handleChangeChoose={handleChangeChoose} withoutReg={withoutReg}/>
                 : isChosed === 'Register' ?
-                    <RegisterForm/>
+                    <RegisterForm setActive={setActive}/>
                 :
                 <h1>Error</h1>
             }

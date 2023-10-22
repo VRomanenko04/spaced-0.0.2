@@ -7,9 +7,10 @@ import Input from '../../UI/Input/Input';
 interface ILogin {
     handleChangeChoose: () => void
     withoutReg?: boolean
+    setActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const LoginForm = ({ handleChangeChoose, withoutReg }: ILogin) => {
+const LoginForm = ({ handleChangeChoose, withoutReg, setActive }: ILogin) => {
     const [userLogin, setUserLogin] = useState({
         email: '',
         password: ''
@@ -46,6 +47,7 @@ const LoginForm = ({ handleChangeChoose, withoutReg }: ILogin) => {
             email: '',
             password: ''
         })
+        setActive(false);
     }
 
     return (

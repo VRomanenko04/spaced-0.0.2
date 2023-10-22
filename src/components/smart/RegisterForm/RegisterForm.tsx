@@ -7,7 +7,11 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import Input from '../../UI/Input/Input';
 
-const RegisterForm = () => {
+type Active = {
+    setActive: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const RegisterForm = ({ setActive }: Active) => {
     const [registerForm, setRegisterForm] = useState({
         username: '',
         email: '',
@@ -94,6 +98,7 @@ const RegisterForm = () => {
                 checkpass: '',
             });
             setValidationErrors({});
+            setActive(false)
         }
     }
 
