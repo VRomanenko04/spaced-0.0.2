@@ -44,9 +44,7 @@ const Cabinet = () => {
     return (
         <section className={styles.root__style}>
             <header>
-                <NavBar
-                    username={username}
-                />
+                <NavBar username={username}/>
             </header>
             <main className={styles.container}>
                 <div>

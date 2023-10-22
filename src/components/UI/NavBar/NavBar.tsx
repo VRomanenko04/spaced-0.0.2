@@ -6,7 +6,7 @@ import AuthPopup from '../../smart/AuthPopup/AuthPopup';
 import { useState } from 'react';
 
 type UserName = {
-    username: string | null
+    username?: string | null
 }
 
 const NavBar = ({username}: UserName) => {
