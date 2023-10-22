@@ -10,7 +10,7 @@ import './firebase.ts'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <HashRouter basename={process.env.NODE_ENV === 'production' ? '/spacedev-0.0.2' : '/'}>
+      <HashRouter>
         <App />
       </HashRouter>
     </Provider>
