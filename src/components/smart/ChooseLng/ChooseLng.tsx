@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ChooseLng.module.scss'
-import Cookies from 'js-cookie';
+import { get, getDatabase, ref, update } from 'firebase/database';
+import { useAuth } from '../../../hooks/useAuth';
 import { FaAngleDown } from 'react-icons/fa';
 
 import UA from '../../../assets/imgs/Flag_of_Ukraine.svg';
@@ -27,16 +28,64 @@ const lngs = [
     }
 ];
 
-const cookieKey = 'language';
 
 const ChooseLng = ({isArrow}: ILng) => {
     const [selectedLng, setSelectedLng] = useState('ua');
     const [isSelectOpen, setIsSelectOpen] = useState(false);
 
+    const userInfo = useAuth();
+
+    const ChangeDataLng = (lngName: string) => {
+        const uid = userInfo.id;
+        if (uid !== null) {
+
+            const database = getDatabase();
+            const lngRef = ref(database, 'users/' + uid)
+
+            const updates = {
+                language: lngName
+            };
+
+            update(lngRef, updates)
+                .then(() => {
+                    sessionStorage.setItem('lng', updates.language)
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error('Ошибка при добавлении нового элемента language:', error);
+                });
+        }
+    }
+
     useEffect(() => {
-        const chosedLng = Cookies.get(cookieKey);
+        const chosedLng = sessionStorage.getItem('lng');
         if (chosedLng) {
             setSelectedLng(chosedLng);
+        } else {
+            // Если значение отсутствует в sessionStorage, проверьте его в базе данных Firebase
+            const uid = userInfo.id;
+            if (uid !== null) {
+                const database = getDatabase();
+                const lngRef = ref(database, 'users/' + uid);
+
+                get(lngRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const lngName = snapshot.val().language || 'us';
+                            setSelectedLng(lngName);
+                            sessionStorage.setItem('lng', lngName);
+                        } else {
+                            setSelectedLng('us');
+                            sessionStorage.setItem('lng', 'us');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка при получении языка из Firebase:', error);
+                    });
+            } else {
+                setSelectedLng('us');
+                sessionStorage.setItem('lng', 'us');
+            }
         }
     }, []);
 
@@ -49,8 +98,7 @@ const ChooseLng = ({isArrow}: ILng) => {
     const handleChangeLng = (lngName: string) => {
         setSelectedLng(lngName);
         setIsSelectOpen(prevIsSelectOpen => !prevIsSelectOpen);
-        Cookies.set(cookieKey, lngName);
-        window.location.reload();
+        ChangeDataLng(lngName)
     }
 
     return (
