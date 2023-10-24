@@ -29,7 +29,7 @@ const LoginForm = ({ handleChangeChoose, withoutReg, setActive }: ILogin) => {
                     token: (user as any).accessToken,
                 })
             })
-            .catch(() => alert('User is not found!'));
+            .catch(() => alert('The email or password was entered incorrectly.'));
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
