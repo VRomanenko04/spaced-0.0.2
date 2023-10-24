@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
-import { loadUserData } from "../../store/userName/userName.slice";
 
 import NavBar from "../../components/UI/NavBar/NavBar";
 import CabinetFaqBlock from "../../components/ordinary/CabinetFaqBlock/CabinetFaqBlock";
@@ -11,33 +9,15 @@ import CabinetInfoBlock from "../../components/simple/CabinetInfoBlock/CabinetIn
 import CabinetPlan from "../../components/simple/CabinetPlanBlock/CabinetPlan";
 import CabinetPushBlock from "../../components/simple/CabinetPushBlock/CabinetPushBlock";
 import styles from './Cabinet.module.scss';
+import { useAuth } from "../../hooks/useAuth";
+import { useUsername } from "../../hooks/useUsername";
 
 
 
 const Cabinet = () => {
-    const [username, setUsername] = useState('');
-
     const dispatch = useDispatch<AppDispatch>();
-
-    useEffect(() => {
-        const userData = sessionStorage.getItem('user');
-        if (userData !== null) {
-            const parseUserData = JSON.parse(userData);
-            const uid = parseUserData.id;
-    
-            dispatch(loadUserData(uid))
-                .then((response) => {
-                    const userData = response.payload;
-                    if (userData && userData.username) {
-                        const fetchedUserName = userData.username;
-                        setUsername(fetchedUserName);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, []);
+    const authUser = useAuth();
+    const username = useUsername(authUser, dispatch);
 
     console.log(username);
 
