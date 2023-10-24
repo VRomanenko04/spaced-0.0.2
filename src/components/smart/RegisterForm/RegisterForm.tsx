@@ -34,7 +34,6 @@ const RegisterForm = ({ setActive }: Active) => {
         try {
             const auth = getAuth();
             const { user } = await createUserWithEmailAndPassword(auth, email, password);
-            console.log(user);
 
             // Добавление пользователя в базу данных
             const database = getDatabase();
@@ -51,8 +50,12 @@ const RegisterForm = ({ setActive }: Active) => {
                 id: user.uid,
                 token: (user as any).accessToken,
             });
-        } catch (error) {
-            console.error("Registration Error:", error);
+        } catch (error: any) {
+            if (error.code === 'auth/email-already-in-use') {
+                alert('This email is already used. Please choose other one or use the password recovery feature.');
+            } else {
+                console.error("Registration Error:", error);
+            }
         }
     }
 
