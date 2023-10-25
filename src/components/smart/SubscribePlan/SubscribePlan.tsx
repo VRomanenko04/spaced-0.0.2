@@ -7,6 +7,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import basicImg from '../../../assets/imgs/basic-planet.png';
 import ultraImg from '../../../assets/imgs/ultra-planet.png';
 import AuthPopup from '../AuthPopup/AuthPopup';
+import { getDatabase, ref, update } from 'firebase/database';
 
 
 const SubscribePlan = () => {
@@ -16,13 +17,30 @@ const SubscribePlan = () => {
 
     const { setChosenPlan } = useActions();
 
-    const { isAuth } = useAuth();
+    const userAuth = useAuth();
 
     const handleClick = () => {
-        if (isAuth) {
+        if (userAuth.isAuth) {
             const chosenPlan = setChosenPlan(selectedPlan);
-            alert(`Your chose plan ${chosenPlan.payload}`);
-            window.location.reload();
+
+            const database = getDatabase();
+            const uid = userAuth.id
+            if (uid !== null) {
+                const userRef = ref(database, 'users/' + uid);
+    
+                const updates = {
+                    selectedPlan: selectedPlan
+                }
+    
+                update(userRef, updates)
+                    .then(() => {
+                        alert(`Your chose plan ${chosenPlan.payload}`);
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка при покупке:', error);
+                    });
+            }
         } else {
             setIsActive(true);
         }

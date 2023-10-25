@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
+import { child, get, getDatabase, ref } from "firebase/database";
 
 const initialState: string = '';
 
@@ -8,20 +8,35 @@ export const subscribePlanSlice = createSlice({
     initialState,
     reducers : {
         setChosenPlan: (_state, action: PayloadAction<string>) => {
-            Cookies.set('subscribePlan', action.payload);
+            sessionStorage.setItem('subscribePlan', action.payload);
             return action.payload;
         }
     }
 })
 
-
-export const initializePlan = () => {
-    const storedPlanData = Cookies.get("subscribePlan");
+export const initializePlan = async (uid: string | null) => {
+    const storedPlanData = sessionStorage.getItem("subscribePlan");
     if (storedPlanData) {
-        return subscribePlanSlice.actions.setChosenPlan(storedPlanData);
+        return Promise.resolve(subscribePlanSlice.actions.setChosenPlan(storedPlanData));
     } else {
-        return null;
+        const dbRef = ref(getDatabase());
+
+        return get(child(dbRef, `users/${uid}/selectedPlan`)).
+            then((snapshot) => {
+                if (snapshot.exists()) {
+                    const selectedPlan = snapshot.val();
+                    console.log('Data complete');
+                    return subscribePlanSlice.actions.setChosenPlan(selectedPlan);
+                } else {
+                    console.log('No data about Plan');
+                    return null;
+                }
+            }).catch((err) => {
+                console.log(err);
+                return null;
+            });
     }
 }
+
 
 export const { actions, reducer } = subscribePlanSlice;
