@@ -7,15 +7,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { RootState } from '../../../store/store';
 
 
-const startDateStr = "2023-10-10";
-const startDateComponents = startDateStr.split("-");
-
 const CabinetPlan = () => {
-    const startDate = new Date(
-        parseInt(startDateComponents[0], 10), // Год
-        parseInt(startDateComponents[1], 10) - 1, // Месяц (нумерация месяцев начинается с 0)
-        parseInt(startDateComponents[2], 10) // День
-    );
 
     const navigate = useNavigate();
 
@@ -39,9 +31,7 @@ const CabinetPlan = () => {
                         )}
                         <div className={styles.lower__bar}>
                             <h4>{chosenPlanWithCapital}</h4>
-                            <ProgressBar
-                                startDate={startDate}
-                            />
+                            <ProgressBar />
                         </div>
                     </div>
                     <div className={styles.manage__plan} onClick={handleManagePlanClick}>
