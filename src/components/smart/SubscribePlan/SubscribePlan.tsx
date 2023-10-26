@@ -18,6 +18,9 @@ const SubscribePlan = () => {
     const { setChosenPlan } = useActions();
 
     const userAuth = useAuth();
+    const billingData = new Date();
+    const endData = new Date(billingData);
+    endData.setDate(billingData.getDate() + 30);
 
     const handleClick = () => {
         if (userAuth.isAuth) {
@@ -27,11 +30,13 @@ const SubscribePlan = () => {
             const uid = userAuth.id
             if (uid !== null) {
                 const userRef = ref(database, 'users/' + uid);
-    
+
                 const updates = {
-                    selectedPlan: selectedPlan
+                    selectedPlan: selectedPlan,
+                    billingData: billingData,
+                    PlanEndData: endData
                 }
-    
+
                 update(userRef, updates)
                     .then(() => {
                         alert(`Your chose plan ${chosenPlan.payload}`);

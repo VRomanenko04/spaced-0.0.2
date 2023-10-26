@@ -15,13 +15,11 @@ const App = () => {
   const userAuth = useAuth();
   
   useEffect(() => {
-    console.log('Start initializeUserData')
       const initializeUserData = async () => {
         const userInitializationAction = initializeUser();
           if (userInitializationAction) {
             store.dispatch(userInitializationAction);
             setGetData(true);
-            console.log('Confirm initializeUserData')
           } else {
             if (userAuth.isAuth) {
               console.error("User initialization failed.");
@@ -36,7 +34,6 @@ const App = () => {
 
   useEffect(() => {
     if (getData) {
-      console.log('Start planInitializationAction')
       if (userAuth.isAuth) {
         const planInitializationAction = initializePlan(userAuth.id);
   
@@ -45,7 +42,6 @@ const App = () => {
             store.dispatch(action);
           }
           setInitializationComplete(true);
-          console.log('Confirm planInitializationAction')
         });
       }
     } 

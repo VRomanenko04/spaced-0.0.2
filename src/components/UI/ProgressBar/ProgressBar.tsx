@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ProgressBar.module.scss';
 
 type Data = {
@@ -14,7 +13,7 @@ const ProgressBar = ({startDate}: Data) => {
     const totalTime = Math.max(0, endDate.getTime() - startDate.getTime());
     const elapsedTime = Math.min(currentDate.getTime() - startDate.getTime(), totalTime);
     const progress = ((totalTime - elapsedTime) / totalTime) * 100;
-
+    
     const fillerStyle = {
         width: `${progress}%`,
         height: "100%",
