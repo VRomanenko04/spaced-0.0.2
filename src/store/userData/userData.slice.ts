@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { fetchUserData } from "../apis/firebaseAPI";
 
-interface IUserData {
+export interface IUserData {
     email: string | null
     language: string | null
     selectedPlan: string | null
@@ -19,9 +19,18 @@ export const userDataSlice = createSlice({
     name: 'userData',
     initialState,
     reducers: {
-        setUserData: (_state, action: PayloadAction<IUserData>) => {
+        setUserData: (state, action: PayloadAction<IUserData>) => {
             const userDataString = JSON.stringify(action.payload);
+            console.log(userDataString);
             sessionStorage.setItem('userData', userDataString);
+
+            return {
+                ...state,
+                email: action.payload.email,
+                language: action.payload.language,
+                selectedPlan: action.payload.selectedPlan,
+                username: action.payload.username
+            };
         }
     }
 });

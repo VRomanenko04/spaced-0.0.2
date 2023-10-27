@@ -3,7 +3,7 @@ import ultraPlanet from '../../../assets/imgs/ultra-planet.png';
 import basicPlanet from '../../../assets/imgs/basic-planet.png';
 import { Link, useNavigate } from 'react-router-dom';
 import ProgressBar from '../../UI/ProgressBar/ProgressBar';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
 
@@ -11,8 +11,9 @@ const CabinetPlan = () => {
 
     const navigate = useNavigate();
 
-    const chosenPlan = useSelector((state: RootState) => state.subscribePlan);
-    const chosenPlanWithCapital = chosenPlan.charAt(0).toUpperCase() + chosenPlan.slice(1);
+    const chosenPlan = useSelector((state: RootState) => state.userData.selectedPlan)
+    const chosenPlanWithCapital = chosenPlan ? chosenPlan.charAt(0).toUpperCase() + chosenPlan.slice(1) : "";
+    console.log(chosenPlan);
 
     const handleManagePlanClick = () => {
         navigate('/plans');

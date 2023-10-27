@@ -5,7 +5,6 @@ import Courses from "../pages/Courses/Courses"
 import PlansPage from "../pages/Plans/PlansPage"
 import { initializeUser } from "../store/userAuth/userAuth.slice"
 import { store } from "../store/store"
-import { initializePlan } from "../store/subscribePlan/subscribePlan.slice"
 import { useEffect, useState } from "react"
 import { useAuth } from "../hooks/useAuth"
 import { initializeData } from "../store/userData/userData.slice"
@@ -32,17 +31,21 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-      if (userAuth.isAuth) {
-        const dataInitializationAction = initializeData(userAuth.id);
-
-        dataInitializationAction.then((action) => {
-          if (action) {
-            store.dispatch(action);
-          }
-          setInitializationComplete(true);
-        });
-      }
-  }, [userAuth.isAuth]);
+    if (userAuth.isAuth) {
+        const fetchData = async () => {
+            try {
+                const action = await initializeData(userAuth.id);
+                if (action) {
+                    store.dispatch(action);
+                }
+                setInitializationComplete(true);
+            } catch (error) {
+                console.error("Error while initializing data:", error);
+            }
+        };
+        fetchData();
+    }
+}, [userAuth.isAuth]);
 
   return (
     <>
