@@ -50,11 +50,6 @@ const ProgressBar = () => {
         }
     }, [startDate, endDate])
 
-    console.log(startDate);
-    console.log(endDate);
-    console.log(progress);
-
-
     const fillerStyle = {
         width: `${progress}%`,
         height: "100%",

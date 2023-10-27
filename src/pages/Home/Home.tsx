@@ -12,14 +12,6 @@ import { useEffect } from "react";
 const Home = () => {
     const { isAuth } = useAuth();
 
-    useEffect(() => {
-        if (isAuth) {
-            setTimeout(() => {
-                window.location.reload();
-            }, 500);
-        }
-    }, [isAuth]);
-
     return !isAuth ? (
         <>
             <HomeHeader/>

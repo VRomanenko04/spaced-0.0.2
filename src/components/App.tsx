@@ -11,7 +11,6 @@ import { useAuth } from "../hooks/useAuth"
 
 const App = () => {
   const [initializationComplete, setInitializationComplete] = useState(false);
-  const [getData, setGetData] = useState(false);
   const userAuth = useAuth();
   
   useEffect(() => {
@@ -19,7 +18,6 @@ const App = () => {
         const userInitializationAction = initializeUser();
           if (userInitializationAction) {
             store.dispatch(userInitializationAction);
-            setGetData(true);
           } else {
             if (userAuth.isAuth) {
               console.error("User initialization failed.");
@@ -33,7 +31,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (getData) {
       if (userAuth.isAuth) {
         const planInitializationAction = initializePlan(userAuth.id);
   
@@ -44,8 +41,7 @@ const App = () => {
           setInitializationComplete(true);
         });
       }
-    } 
-  }, [getData]);
+  }, [userAuth.isAuth]);
 
   return (
     <>
