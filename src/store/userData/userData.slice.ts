@@ -39,7 +39,6 @@ export const initializeData = async (uid: string | null) => {
 
             const userData = { email, language, selectedPlan, username };
 
-            console.log(userData);
             return userDataSlice.actions.setUserData(userData);
         } else {
             return null

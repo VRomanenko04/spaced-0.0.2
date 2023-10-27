@@ -8,6 +8,7 @@ import { store } from "../store/store"
 import { initializePlan } from "../store/subscribePlan/subscribePlan.slice"
 import { useEffect, useState } from "react"
 import { useAuth } from "../hooks/useAuth"
+import { initializeData } from "../store/userData/userData.slice"
 
 const App = () => {
   const [initializationComplete, setInitializationComplete] = useState(false);
@@ -32,9 +33,9 @@ const App = () => {
 
   useEffect(() => {
       if (userAuth.isAuth) {
-        const planInitializationAction = initializePlan(userAuth.id);
+        const dataInitializationAction = initializeData(userAuth.id);
 
-        planInitializationAction.then((action) => {
+        dataInitializationAction.then((action) => {
           if (action) {
             store.dispatch(action);
           }
