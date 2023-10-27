@@ -33,7 +33,7 @@ const App = () => {
   useEffect(() => {
       if (userAuth.isAuth) {
         const planInitializationAction = initializePlan(userAuth.id);
-  
+
         planInitializationAction.then((action) => {
           if (action) {
             store.dispatch(action);
