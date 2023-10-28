@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 import NavBar from "../../components/UI/NavBar/NavBar";
 import CabinetFaqBlock from "../../components/ordinary/CabinetFaqBlock/CabinetFaqBlock";
@@ -9,22 +9,17 @@ import CabinetInfoBlock from "../../components/simple/CabinetInfoBlock/CabinetIn
 import CabinetPlan from "../../components/simple/CabinetPlanBlock/CabinetPlan";
 import CabinetPushBlock from "../../components/simple/CabinetPushBlock/CabinetPushBlock";
 import styles from './Cabinet.module.scss';
-import { useAuth } from "../../hooks/useAuth";
-import { useUsername } from "../../hooks/useUsername";
+
 
 
 
 const Cabinet = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const authUser = useAuth();
-    const username = useUsername(authUser, dispatch);
-
-    console.log(username);
+    const username = useSelector((state: RootState) => state.userData.username);
 
     return (
         <section className={styles.root__style}>
             <header>
-                <NavBar username={username}/>
+                <NavBar username={username ? username : ''}/>
             </header>
             <main className={styles.container}>
                 <div>
@@ -34,7 +29,7 @@ const Cabinet = () => {
                 </div>
                 <div className={styles.right__margin}>
                     <CabinetInfoBlock
-                        username={username}
+                        username={username ? username : ''}
                     />
                     <CabinetPushBlock/>
                     <CabinetFaqBlock/>

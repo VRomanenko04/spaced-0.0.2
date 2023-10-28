@@ -5,6 +5,8 @@ import mashiine from '../../../assets/imgs/mashiine.svg';
 import penIcon from '../../../assets/imgs/edit.png';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, update } from 'firebase/database';
+import { useActions } from '../../../hooks/useActions';
+import { IUserData } from '../../../store/userData/userData.slice';
 
 type UserName = {
     username: string
@@ -14,6 +16,8 @@ const CabinetInfoBlock = ({ username }: UserName) => {
     const [editableText, setEditableText] = useState(username);
     const [inputValue, setInputValue] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+
+    const { setUserData } = useActions();
 
     useEffect(() => {
         setEditableText(username);
@@ -29,7 +33,11 @@ const CabinetInfoBlock = ({ username }: UserName) => {
     const saveText = () => {
         const uid = userInfo.id;
         if (uid !== null) {
-    
+            const userDataUpdate: IUserData = {
+                username: inputValue,
+            }
+
+
             const database = getDatabase();
             const userRef = ref(database, 'users/' + uid);
 
@@ -41,7 +49,7 @@ const CabinetInfoBlock = ({ username }: UserName) => {
                 .then(() => {
                     setEditableText(inputValue);
                     setIsEditing(false);
-                    window.location.reload();
+                    setUserData(userDataUpdate);
                 })
                 .catch((error) => {
                     console.error('Ошибка при сохранении данных:', error);

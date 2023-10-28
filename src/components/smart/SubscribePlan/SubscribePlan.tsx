@@ -29,8 +29,6 @@ const SubscribePlan = () => {
                 selectedPlan: selectedPlan,
             }
 
-            setUserData(userDataUpdate);
-
             const database = getDatabase();
             const uid = userAuth.id
             if (uid !== null) {
@@ -45,7 +43,7 @@ const SubscribePlan = () => {
                 update(userRef, updates)
                     .then(() => {
                         alert(`Your chose plan ${selectedPlan}`);
-                        window.location.reload();
+                        setUserData(userDataUpdate);
                     })
                     .catch((error) => {
                         console.error('Ошибка при покупке:', error);
