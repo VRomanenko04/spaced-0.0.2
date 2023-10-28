@@ -8,6 +8,7 @@ import basicImg from '../../../assets/imgs/basic-planet.png';
 import ultraImg from '../../../assets/imgs/ultra-planet.png';
 import AuthPopup from '../AuthPopup/AuthPopup';
 import { getDatabase, ref, update } from 'firebase/database';
+import { IUserData } from '../../../store/userData/userData.slice';
 
 
 const SubscribePlan = () => {
@@ -15,7 +16,7 @@ const SubscribePlan = () => {
     const [isActive, setIsActive] = useState(false);
     const [isChosed, setIsChosed] = useState('LogIn');
 
-    const { setChosenPlan } = useActions();
+    const { setUserData } = useActions();
 
     const userAuth = useAuth();
     const billingData = new Date();
@@ -24,7 +25,11 @@ const SubscribePlan = () => {
 
     const handleClick = () => {
         if (userAuth.isAuth) {
-            const chosenPlan = setChosenPlan(selectedPlan);
+            const userDataUpdate: IUserData = {
+                selectedPlan: selectedPlan,
+            }
+
+            setUserData(userDataUpdate);
 
             const database = getDatabase();
             const uid = userAuth.id
@@ -39,7 +44,7 @@ const SubscribePlan = () => {
 
                 update(userRef, updates)
                     .then(() => {
-                        alert(`Your chose plan ${chosenPlan.payload}`);
+                        alert(`Your chose plan ${selectedPlan}`);
                         window.location.reload();
                     })
                     .catch((error) => {
