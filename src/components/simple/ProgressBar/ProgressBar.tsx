@@ -1,42 +1,45 @@
 import styles from './ProgressBar.module.scss';
 import { useAuth } from '../../../hooks/useAuth';
 import { useEffect, useState } from 'react';
-import { loadUserData } from '../../../store/userName/userName.slice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../store/store';
+import { fetchUserData } from '../../../store/apis/firebaseAPI';
 
 
 const ProgressBar = () => {
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [progress, setProgress] = useState<number>();
+    const [loading, setLoading] = useState(true);
     
     const authUser = useAuth();
-    const dispatch: AppDispatch = useDispatch();
 
     const currentDate = new Date();
 
     useEffect(() => {
         const uid = authUser.id;
         if (uid !== null) {
-            dispatch(loadUserData(uid))
-                .then((response) => {
-                    const userData = response.payload;
+            const fetchData = async () => {
+                try {
+                    const userData = await fetchUserData(uid);
+
                     if (userData && userData.PlanEndData && userData.billingData) {
                         const planEndDate = new Date(userData.PlanEndData);
                         const billingDate = new Date(userData.billingData);
-    
+
                         if (!isNaN(planEndDate.getTime()) && !isNaN(billingDate.getTime())) {
                             setStartDate(billingDate);
                             setEndDate(planEndDate);
+                            setLoading(false);
                         } else {
                             console.log("Invalid date data in userData.");
                         }
+                    } else {
+                        console.log("User data not found.");
                     }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+                } catch(error){
+                    console.log('Ошибка при чтении данных:', error);
+                }
+            }
+            fetchData();
         }
     }, []);
 
@@ -51,7 +54,7 @@ const ProgressBar = () => {
     }, [startDate, endDate])
 
     const fillerStyle = {
-        width: `${progress}%`,
+        width: `${loading ? '0' : progress}%`,
         height: "100%",
         borderRadius: "22px",
         background: "#ED9626",
