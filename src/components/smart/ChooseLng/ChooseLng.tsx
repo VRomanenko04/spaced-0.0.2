@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import styles from './ChooseLng.module.scss'
-import { get, getDatabase, ref, update } from 'firebase/database';
+import { useSelector } from 'react-redux';
+import { getDatabase, ref, update } from 'firebase/database';
 import { useAuth } from '../../../hooks/useAuth';
-import { FaAngleDown } from 'react-icons/fa';
+import { useActions } from '../../../hooks/useActions';
+import { RootState } from '../../../store/store';
+import { IUserData } from '../../../store/userData/userData.slice';
 
+import styles from './ChooseLng.module.scss';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaAngleDown } from 'react-icons/fa';
 import UA from '../../../assets/imgs/Flag_of_Ukraine.svg';
 import US from '../../../assets/imgs/Flag_of_the_United_States.svg';
 import RU from '../../../assets/imgs/Flag_of_Russia.svg';
 
-interface ILng {
+
+interface IArrow {
     isArrow: boolean
 }
 
@@ -29,11 +34,15 @@ const lngs = [
 ];
 
 
-const ChooseLng = ({isArrow}: ILng) => {
-    const [selectedLng, setSelectedLng] = useState('ua');
+const ChooseLng = ({isArrow}: IArrow) => {
+    const [selectedLng, setSelectedLng] = useState('us');
     const [isSelectOpen, setIsSelectOpen] = useState(false);
 
     const userInfo = useAuth();
+
+    const chosedDataLng = useSelector((state: RootState) => state.userData.language)
+
+    const { setUserData } = useActions();
 
     const ChangeDataLng = (lngName: string) => {
         const uid = userInfo.id;
@@ -48,7 +57,13 @@ const ChooseLng = ({isArrow}: ILng) => {
 
             update(lngRef, updates)
                 .then(() => {
-                    sessionStorage.setItem('lng', updates.language)
+                    const userDataUpdate: IUserData = {
+                        language: lngName,
+                    }
+
+                    setUserData(userDataUpdate);
+                })
+                .then(() => {
                     window.location.reload();
                 })
                 .catch((error) => {
@@ -58,34 +73,15 @@ const ChooseLng = ({isArrow}: ILng) => {
     }
 
     useEffect(() => {
-        const chosedLng = sessionStorage.getItem('lng');
-        if (chosedLng) {
-            setSelectedLng(chosedLng);
-        } else {
-            // Если значение отсутствует в sessionStorage, проверьте его в базе данных Firebase
-            const uid = userInfo.id;
-            if (uid !== null) {
-                const database = getDatabase();
-                const lngRef = ref(database, 'users/' + uid);
-
-                get(lngRef)
-                    .then((snapshot) => {
-                        if (snapshot.exists()) {
-                            const lngName = snapshot.val().language || 'us';
-                            setSelectedLng(lngName);
-                            sessionStorage.setItem('lng', lngName);
-                        } else {
-                            setSelectedLng('us');
-                            sessionStorage.setItem('lng', 'us');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Ошибка при получении языка из Firebase:', error);
-                    });
-            } else {
-                setSelectedLng('us');
-                sessionStorage.setItem('lng', 'us');
+        if (chosedDataLng) {
+            setSelectedLng(chosedDataLng);
+        } else if (chosedDataLng === null) {
+            // Если значение отсутствует в store, ставим базовым us
+            const userDataUpdate: IUserData = {
+                language: 'us',
             }
+            
+            setUserData(userDataUpdate);
         }
     }, []);
 
