@@ -2,7 +2,7 @@ import styles from './CabinetPlan.module.scss';
 import ultraPlanet from '../../../assets/imgs/ultra-planet.png';
 import basicPlanet from '../../../assets/imgs/basic-planet.png';
 import { Link, useNavigate } from 'react-router-dom';
-import ProgressBar from '../../UI/ProgressBar/ProgressBar';
+import ProgressBar from '../ProgressBar/ProgressBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 
