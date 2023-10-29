@@ -13,7 +13,6 @@ const CabinetPlan = () => {
 
     const chosenPlan = useSelector((state: RootState) => state.userData.selectedPlan)
     const chosenPlanWithCapital = chosenPlan ? chosenPlan.charAt(0).toUpperCase() + chosenPlan.slice(1) : "";
-    console.log(chosenPlan);
 
     const handleManagePlanClick = () => {
         navigate('/plans');

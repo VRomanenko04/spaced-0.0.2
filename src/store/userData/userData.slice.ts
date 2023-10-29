@@ -35,7 +35,6 @@ export const userDataSlice = createSlice({
             };
 
             const userDataString = JSON.stringify(newState);
-            console.log(userDataString);
             sessionStorage.setItem('userData', userDataString);
 
             return newState;
