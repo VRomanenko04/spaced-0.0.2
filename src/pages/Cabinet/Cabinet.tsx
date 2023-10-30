@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { useEffect, useState } from "react";
 
 import NavBar from "../../components/UI/NavBar/NavBar";
 import CabinetFaqBlock from "../../components/ordinary/CabinetFaqBlock/CabinetFaqBlock";
@@ -9,15 +10,30 @@ import CabinetInfoBlock from "../../components/simple/CabinetInfoBlock/CabinetIn
 import CabinetPlan from "../../components/simple/CabinetPlanBlock/CabinetPlan";
 import CabinetPushBlock from "../../components/simple/CabinetPushBlock/CabinetPushBlock";
 import styles from './Cabinet.module.scss';
+import PreLoader from "../../components/UI/PreLoader/PreLoader";
 
 
 
 
 const Cabinet = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
     const username = useSelector((state: RootState) => state.userData.username);
+
+    useEffect(() => {
+        if (isLoading) {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1200);
+        }
+    }, [])
+
 
     return (
         <section className={styles.root__style}>
+            {isLoading && (
+                <PreLoader/>
+            )}
             <header>
                 <NavBar username={username ? username : ''}/>
             </header>

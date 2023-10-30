@@ -6,7 +6,6 @@ import SubscribeBlock from "../../components/ordinary/SubscribeBlock/SubscribeBl
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import styles from './Home.module.scss';
-import { useEffect } from "react";
 
 
 const Home = () => {
