@@ -9,6 +9,8 @@ import ultraImg from '../../../assets/imgs/ultra-planet.png';
 import AuthPopup from '../AuthPopup/AuthPopup';
 import { getDatabase, ref, update } from 'firebase/database';
 import { IUserData } from '../../../store/userData/userData.slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
 
 const SubscribePlan = () => {
@@ -17,6 +19,7 @@ const SubscribePlan = () => {
     const [isChosed, setIsChosed] = useState('LogIn');
 
     const { setUserData } = useActions();
+    const ChosedPlan = useSelector((state: RootState) => state.userData.selectedPlan);
 
     const userAuth = useAuth();
     const billingData = new Date();
@@ -25,29 +28,34 @@ const SubscribePlan = () => {
 
     const handleClick = () => {
         if (userAuth.isAuth) {
-            const userDataUpdate: IUserData = {
-                selectedPlan: selectedPlan,
-            }
-
-            const database = getDatabase();
-            const uid = userAuth.id
-            if (uid !== null) {
-                const userRef = ref(database, 'users/' + uid);
-
-                const updates = {
+            if (ChosedPlan === null) {
+                const database = getDatabase();
+                const uid = userAuth.id
+    
+                const userDataUpdate: IUserData = {
                     selectedPlan: selectedPlan,
-                    billingData: billingData,
-                    PlanEndData: endData
                 }
-
-                update(userRef, updates)
-                    .then(() => {
-                        alert(`Your chose plan ${selectedPlan}`);
-                        setUserData(userDataUpdate);
-                    })
-                    .catch((error) => {
-                        console.error('Ошибка при покупке:', error);
-                    });
+    
+                if (uid !== null) {
+                    const userRef = ref(database, 'users/' + uid);
+    
+                    const updates = {
+                        selectedPlan: selectedPlan,
+                        billingData: billingData,
+                        PlanEndData: endData
+                    }
+    
+                    update(userRef, updates)
+                        .then(() => {
+                            alert(`Your chose plan ${selectedPlan}`);
+                            setUserData(userDataUpdate);
+                        })
+                        .catch((error) => {
+                            console.error('Ошибка при покупке:', error);
+                        });
+                }
+            } else {
+                alert(`You can't pay for a new plan because your previous one hasn't expired yet`);
             }
         } else {
             setIsActive(true);
