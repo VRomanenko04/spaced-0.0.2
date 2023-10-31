@@ -1,10 +1,9 @@
-import ChooseLng from '../../smart/ChooseLng/ChooseLng';
 import styles from './RegisterForm.module.scss';
 import ava from '../../../assets/imgs/Rectangle 46.png'
 import { useState, useEffect } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import { get, getDatabase, ref, set } from "firebase/database";
 import Input from '../../UI/Input/Input';
 
 type Active = {
@@ -38,9 +37,26 @@ const RegisterForm = ({ setActive }: Active) => {
             // Добавление пользователя в базу данных
             const database = getDatabase();
             const userRef = ref(database, 'users/' + user.uid);
+            const allUsersRef = ref(database, 'users');
+            let numChildren = 0;
+
+            await get(allUsersRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    numChildren = data ? Object.keys(data).length : 0;
+                    console.log("Количество узлов в узле 'users': " + numChildren);
+                } else {
+                    console.log("Узел 'users' не существует.");
+                }
+            }).catch((error) => {
+                console.error("Ошибка при получении данных: " + error);
+            })
+
             const userData = {
                 username: registerForm.username,
                 email: email,
+                userId: numChildren + 1
             };
             await set(userRef, userData);
 
@@ -169,10 +185,6 @@ const RegisterForm = ({ setActive }: Active) => {
                             }
                         </div>
                     </div>
-                    {/* <div>
-                        <p className={styles.lng__label}>Language (You can change later):</p>
-                        <ChooseLng isArrow={true}/>
-                    </div> */}
                     <button className={styles.btn} type='submit'>Submit</button>
                 </form>
             </div>
