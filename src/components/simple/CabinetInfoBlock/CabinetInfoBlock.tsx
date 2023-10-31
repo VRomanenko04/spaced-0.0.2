@@ -2,7 +2,6 @@ import styles from './CabinetInfoBlock.module.scss';
 import avatar from '../../../assets/imgs/Rectangle 46.png';
 import { useAuth } from '../../../hooks/useAuth';
 import mashiine from '../../../assets/imgs/mashiine.svg';
-import penIcon from '../../../assets/imgs/edit.png';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, update } from 'firebase/database';
 import { useActions } from '../../../hooks/useActions';
@@ -87,20 +86,16 @@ const CabinetInfoBlock = ({ username }: UserName) => {
             <div className={styles.player__info}>
                 <div className={styles.nick__user}>
                     {isEditing ? (
-                        <div className={styles.editUsername}>
-                            <input
-                                type="text"
-                                value={inputValue}
-                                onChange={handleTextChange}
-                                onKeyDown={handleKeyPress}
-                                className={styles.username__input}
-                            />
-                            <img src={penIcon} alt="Pen" />
-                        </div>
+                        <input
+                            type="text"
+                            value={inputValue}
+                            onChange={handleTextChange}
+                            onKeyDown={handleKeyPress}
+                            className={styles.username__input}
+                        />
                     ) : (
                         <h6>{editableText}</h6>
-                    )
-                    }
+                    )}
                     <p>{userIdName}</p>
                 </div>
                 <p>{userInfo.email}</p>
@@ -110,8 +105,8 @@ const CabinetInfoBlock = ({ username }: UserName) => {
                     <img src={mashiine} alt="mashiine" />
                 </div>
             ) : (
-                <div className={styles.mashiine} onClick={saveText}>
-                    <img src={mashiine} alt="mashiine" />
+                <div className={styles.save__changes} onClick={saveText}>
+                    <p>Save Changes</p>
                 </div>
             )}
         </div>

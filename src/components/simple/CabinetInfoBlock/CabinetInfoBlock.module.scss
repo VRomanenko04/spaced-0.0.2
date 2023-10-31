@@ -34,12 +34,17 @@
 }
 
 .username__input {
-    background: transparent;
     border: none;
     color: #fff;
     font-size: 24px;
-    width: 110px;
+    margin-bottom: 5px;
+    width: 150px;
     font-weight: 600;
+    background-image: url('../../../assets/imgs/edit.png');
+    background-color: transparent;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: right center;
 
     &:focus {
         outline: none;
@@ -47,21 +52,18 @@
     }
 }
 
-.editUsername {
-    display: flex;
-    flex-direction: row;
-
-    img {
-        height: 20px;
-        width: auto;
-        margin-top: 3px;
-        margin-left: 5px;
-    }
-}
-
-.mashiine {
+.mashiine,
+.save__changes {
     position: absolute;
     bottom: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+.save__changes {
+    font-size: 12px;
+    background-color: #fff;
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 4px;
 }
