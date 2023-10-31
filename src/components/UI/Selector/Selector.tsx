@@ -45,7 +45,7 @@ const Selector = (props: SelectorProps) => {
                         animate={{ height: 'auto' }}
                         exit={{ height: 0 }}
                         transition={{
-                            duration: 0.5
+                            duration: 0.2
                         }}
                     >
                         {options.map((option, index) => (
