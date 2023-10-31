@@ -7,10 +7,14 @@ import { useEffect, useState } from 'react';
 import { getDatabase, ref, update } from 'firebase/database';
 import { useActions } from '../../../hooks/useActions';
 import { IUserData } from '../../../store/userData/userData.slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
 type UserName = {
     username: string
 }
+
+let userIdName: string
 
 const CabinetInfoBlock = ({ username }: UserName) => {
     const [editableText, setEditableText] = useState(username);
@@ -18,6 +22,14 @@ const CabinetInfoBlock = ({ username }: UserName) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const { setUserData } = useActions();
+
+    const userId = useSelector((state: RootState) => state.userData.userId);
+
+    if (userId && userId < 10) {
+        userIdName = `astronaut#0${userId}`
+    } else if (userId && userId >= 10) {
+        userIdName = `astronaut#${userId}`
+    }
 
     useEffect(() => {
         setEditableText(username);
@@ -89,7 +101,7 @@ const CabinetInfoBlock = ({ username }: UserName) => {
                         <h6>{editableText}</h6>
                     )
                     }
-                    <p>@user#22</p>
+                    <p>{userIdName}</p>
                 </div>
                 <p>{userInfo.email}</p>
             </div>
