@@ -6,13 +6,15 @@ export interface IUserData {
     language?: string | null
     selectedPlan?: string | null
     username?: string | null
+    userId?: number | null
 }
 
 const initialState: IUserData = {
     email: null,
     language: null,
     selectedPlan: null,
-    username: null
+    username: null,
+    userId: null
 }
 
 export const userDataSlice = createSlice({
@@ -26,7 +28,8 @@ export const userDataSlice = createSlice({
                 email: action.payload.email ?? currentState.email,
                 language: action.payload.language ?? currentState.language,
                 selectedPlan: action.payload.selectedPlan ?? currentState.selectedPlan,
-                username: action.payload.username ?? currentState.username
+                username: action.payload.username ?? currentState.username,
+                userId: action.payload.userId ?? currentState.userId
             };
 
             const newState = {
@@ -51,9 +54,9 @@ export const initializeData = async (uid: string | null) => {
         if (uid) {
             const fetchedUserData = await fetchUserData(uid);
 
-            const { email, language, selectedPlan, username } = fetchedUserData;
+            const { email, language, selectedPlan, username, userId } = fetchedUserData;
 
-            const userData = { email, language, selectedPlan, username };
+            const userData = { email, language, selectedPlan, username, userId };
 
             return userDataSlice.actions.setUserData(userData);
         } else {
