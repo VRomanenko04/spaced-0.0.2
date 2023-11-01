@@ -8,10 +8,8 @@ import CabinetLngBlock from "../../components/ordinary/CabinetLngBlock/CabinetLn
 import CabinetCoursesBlock from "../../components/simple/CabinetCoursesBlock/CabinetCoursesBlock";
 import CabinetInfoBlock from "../../components/simple/CabinetInfoBlock/CabinetInfoBlock";
 import CabinetPlan from "../../components/simple/CabinetPlanBlock/CabinetPlan";
-import CabinetPushBlock from "../../components/simple/CabinetPushBlock/CabinetPushBlock";
 import styles from './Cabinet.module.scss';
 import PreLoader from "../../components/UI/PreLoader/PreLoader";
-
 
 
 
@@ -47,7 +45,6 @@ const Cabinet = () => {
                     <CabinetInfoBlock
                         username={username ? username : ''}
                     />
-                    <CabinetPushBlock/>
                     <CabinetFaqBlock/>
                     <CabinetLngBlock/>
                 </div>
